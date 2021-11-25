@@ -30,3 +30,16 @@ a {
 .textCenter {
   text-align: center;
 }
+
+// 修改 下拉選單的箭頭
+select {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Some browsers will not display the caret when using calc, so we put the fallback first */
+  background: url("../icons/arrow_drop_down_black_24dp.svg") white no-repeat
+    98.5% !important; /* !important used for overriding all other customisations */
+  background: url("../icons/arrow_drop_down_black_24dp.svg") white no-repeat
+    calc(100% - 10px) !important; /* Better placement regardless of input width */
+}
