@@ -12,37 +12,20 @@
         <div>
           <form [formGroup]="myForm">
             <div class="keywordContainer">
-              <!-- <mat-form-field class="citySelect" appearance="legacy">
-                <mat-select
-                  placeholder="請選擇縣市"
-                  formControlName="city"
-                  name="item"
-                >
-                  <mat-option
-                    *ngFor="let option of options"
-                    [value]="option.CityName"
-                  >
-                    {{ option.CityName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
-              <select required formControlName="city" class="citySelect">
-                <option value="" selected>請選擇縣市</option>
+              <select
+                required
+                formControlName="city"
+                class="citySelect"
+                (change)="changeCity($event)"
+              >
                 <option
-                  *ngFor="let option of options"
-                  [value]="option.CityName"
+                  *ngFor="let option of options; let idx = index"
+                  [value]="option.City"
+                  selected
                 >
                   {{ option.CityName }}
                 </option>
               </select>
-              <!-- <input
-                readonly
-                type="text"
-                matInput
-                placeholder="請選擇縣市"
-                formControlName="city"
-                [matAutocomplete]="auto"
-              /> -->
               <input
                 type="text"
                 matInput
@@ -61,14 +44,14 @@
               </div>
             </div>
           </form>
-          <mat-autocomplete #auto="matAutocomplete">
+          <!-- <mat-autocomplete #auto="matAutocomplete">
             <mat-option
               *ngFor="let option of filteredOptions | async"
               [value]="option.CityName"
             >
               {{ option.CityName }}
             </mat-option>
-          </mat-autocomplete>
+          </mat-autocomplete> -->
         </div>
       </div>
     </div>

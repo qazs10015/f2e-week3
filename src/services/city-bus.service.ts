@@ -6,10 +6,14 @@ import { BusA1Data } from 'src/models/bus-a1-data.model';
   providedIn: 'root'
 })
 export class CityBusService {
-  private apiUrl = 'https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/Streaming/City'
+  private apiUrl = 'https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/City/'
   constructor(private http: HttpClient) { }
 
-  getRealTimeByFrequencyBus(city: string) {
-    return this.http.get<BusA1Data[]>(this.apiUrl + city).toPromise();
+  /** 取得批次更新的公車資料 */
+  getRealTimeByFrequencyBus(city: string, keyword: string) {
+    let params = {
+      $format: 'JSON'
+    }
+    return this.http.get<BusA1Data[]>(this.apiUrl + city, { params }).toPromise();
   }
 }

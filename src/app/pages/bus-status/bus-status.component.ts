@@ -1,9 +1,12 @@
+import { LocatorService } from './../../../services/locator.service';
+import { LocationService } from './../../../services/location.service';
+import { CityBusService } from './../../../services/city-bus.service';
 import { BaseCity } from './../../../models/basic-city.model';
 import { BasicService } from './../../../services/basic.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -19,14 +22,14 @@ export class BusStatusComponent implements OnInit {
   });
 
   private get cityFrmCtrl() {
-    return this.myForm.get('city');
+    return this.myForm.get('city')!;
   }
   private get keywordFrmCtrl() {
-    return this.myForm.get('keyword');
+    return this.myForm.get('keyword')!;
   }
 
   options: BaseCity[] = [];
-  filteredOptions: Observable<BaseCity[]> = of([]);
+  // filteredOptions: Observable<BaseCity[]> = of([]);
 
 
   /** 鍵盤選項 */
@@ -55,16 +58,35 @@ export class BusStatusComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private cityBusService: CityBusService,
+    private locationService: LocationService,
+    private locatorService: LocatorService,
     private BasicService: BasicService) {
 
   }
   async ngOnInit() {
-    this.options = await this.BasicService.getCity();
+    // form 有異動就直接搜尋資料
+    this.myForm.valueChanges.pipe(
+      switchMap(val => {
+        const city = val?.city ?? '';
+        const keyword = val?.keyword ?? '';
+        return this.cityBusService.getRealTimeByFrequencyBus(city, keyword);
+      })
+    ).subscribe(val => {
+      console.log(val);
+    });
 
-    this.filteredOptions = this.cityFrmCtrl!.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value)),
-    );
+
+    // 取得縣市清單
+    this.options = await this.BasicService.getCity();
+    // 取得目前座標
+    const currentPos = await this.locationService.getPosition();
+    // 取得目前行政區
+    const currentDistrict = await this.locatorService.getDistrict(currentPos.lat, currentPos.lng);
+    // 將目前行政區設為預設搜尋選項
+    this.myForm.patchValue({ city: currentDistrict[0].City });
+
+
   }
 
   /** 退回鍵 */
@@ -81,17 +103,21 @@ export class BusStatusComponent implements OnInit {
     this.keywordFrmCtrl?.patchValue(currentKeyword + keyword);
   }
 
-
-  private _filter(value: string): BaseCity[] {
-    let result = [];
-    if (value) {
-      const filterValue = value;
-      result = this.options.filter(option => option.CityName.includes(filterValue))
-    } else {
-      result = this.options;
-    }
-    return result;
+  changeCity(e: any) {
+    this.cityFrmCtrl.setValue(e.target.value)
   }
+
+
+  // private _filter(value: string): BaseCity[] {
+  //   let result = [];
+  //   if (value) {
+  //     const filterValue = value;
+  //     result = this.options.filter(option => option.CityName.includes(filterValue))
+  //   } else {
+  //     result = this.options;
+  //   }
+  //   return result;
+  // }
 
 }
 
