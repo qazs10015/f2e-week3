@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="searchBar">
+    <app-nav></app-nav>
+    <div class="siteMap">
+      <span>首頁</span>
+      <i class="fas fa-chevron-right"></i>
+      <span>公車動態</span>
+    </div>
+    <div class="filter">
+      <div>
+        <div class="tip">*選擇縣市有助於您更快找到路線</div>
+        <div>
+          <form [formGroup]="myForm">
+            <div class="keywordContainer">
+              <input
+                type="text"
+                matInput
+                placeholder="請選擇縣市或手動輸入關鍵字"
+                aria-label="Number"
+                formControlName="keyword"
+                [matAutocomplete]="auto"
+              />
+              <div class="action">
+                <span
+                  class="pointer reset"
+                  (click)="myForm.get('keyword')?.reset()"
+                  ><i class="fas fa-times"></i
+                ></span>
+                <!-- <a class="search"><i class="fas fa-search"></i></a> -->
+                <button class="pointer search" mat-icon-button>
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option.CityName"
+            >
+              {{ option.CityName }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

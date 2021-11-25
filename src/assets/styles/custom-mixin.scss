@@ -1,0 +1,16 @@
+@mixin searchBar($bgColog: $mainColor) {
+  height: 30vh;
+  background-color: $bgColog;
+  border-radius: 0 0 20px 20px;
+}
+// 網頁上的 siteMap
+@mixin siteMap($fontColor: $white) {
+  font-size: 16px;
+  color: $fontColor;
+  position: absolute;
+  top: 10vh;
+  left: 14vw;
+  span {
+    margin: 0 10px;
+  }
+}

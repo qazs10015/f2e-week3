@@ -1,0 +1,33 @@
+@import "/src/assets/styles/custom-all.scss";
+
+.nav {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .logo {
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 14vw;
+  }
+  .menu {
+    // width: calc(100% - 370px);
+    padding: 15px 0;
+    ul {
+      display: flex;
+      justify-content: center;
+
+      li {
+        min-width: 100px;
+        margin: 0 20px;
+        a {
+          text-decoration: none;
+          color: $white;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

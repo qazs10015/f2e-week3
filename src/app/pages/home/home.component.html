@@ -1,0 +1,35 @@
+<app-nav></app-nav>
+<div class="container">
+  <div class="bgImg"></div>
+
+  <div class="content">
+    <div>
+      <img src="assets/images/HelloBus_light.png" alt="HelloBus_light.png" />
+    </div>
+    <div>全台公車動態時刻查詢網</div>
+  </div>
+  <div class="action">
+    <ul>
+      <li>
+        <a [routerLink]="'/busStatus'"
+          ><img src="assets/icons/busStatus.png" alt=""
+        /></a>
+      </li>
+      <li>
+        <a [routerLink]="'/station'"
+          ><img src="assets/icons/station.png" alt=""
+        /></a>
+      </li>
+      <li>
+        <a [routerLink]="'/scheduleList'"
+          ><img src="assets/icons/scheduleList.png" alt=""
+        /></a>
+      </li>
+      <li>
+        <a [routerLink]="'/favarite'"
+          ><img src="assets/icons/favarite.png" alt=""
+        /></a>
+      </li>
+    </ul>
+  </div>
+</div>

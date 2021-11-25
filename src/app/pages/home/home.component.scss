@@ -1,0 +1,39 @@
+@import "/src/assets/styles/custom-variables.scss";
+@import "/src/assets/styles/custom-color.scss";
+@import "/src/assets/styles/custom-utility.scss";
+
+.container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  .bgImg {
+    background-image: url("../../../assets/images/picMaskBgPC.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: -143px;
+  }
+  .content {
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 26px;
+    justify-content: center;
+    height: 80%;
+  }
+  .action {
+    position: absolute;
+    bottom: 7vh;
+    ul {
+      display: flex;
+      li {
+        margin: 0 40px;
+      }
+    }
+  }
+}

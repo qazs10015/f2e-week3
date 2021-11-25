@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
+// 載入設計稿使用的字體
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap");
+
+@import "/src/assets/styles/custom-all.scss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Noto Sans TC", "Roboto", sans-serif !important;
+  height: 100%;
+}
+
+// tablet
+@media only screen and (max-width: 1199px) {
+  body {
+  }
+}
+
+// mobile
+@media only screen and (max-width: 767) {
+  body {
+  }
+}
+
+// html,
+// body {
+//   height: 100%;
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
