@@ -19,6 +19,17 @@ export class BusStatusComponent implements OnInit {
   options: BaseCity[] = [];
   filteredOptions: Observable<BaseCity[]> = of([]);
 
+  lstKeyboardLineBtn = [
+    { displayName: '紅', class: 'keyboardRed' },
+    { displayName: '藍', class: 'keyboardBlue' },
+    { displayName: '棕', class: 'keyboardBrown' },
+    { displayName: '綠', class: 'keyboardGreen' },
+    { displayName: '黃', class: 'keyboardYello' },
+    { displayName: '橘', class: 'keyboardOrange' },
+    { displayName: 'F', class: 'keyboardWhite' },
+    { displayName: '更多', class: 'keyboardGray' },
+  ]
+
   constructor(private fb: FormBuilder, private BasicService: BasicService) {
 
   }

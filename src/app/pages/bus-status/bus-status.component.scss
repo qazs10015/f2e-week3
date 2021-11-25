@@ -45,3 +45,33 @@
     }
   }
 }
+
+.searchResult {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+  .searchResultList {
+    margin-right: 30px;
+    box-shadow: $boxShadow;
+    border-radius: 20px;
+    border: none;
+    width: 433px;
+    height: 58vh;
+    .title {
+      font-size: 20px;
+      height: 45px;
+      border-radius: 20px 20px 0 0;
+      background-color: $mainColor;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .keyboard {
+    box-shadow: $boxShadow;
+    width: 433px;
+    height: 320px;
+    border-radius: 20px;
+  }
+}
