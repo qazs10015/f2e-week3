@@ -1,2 +1,39 @@
+// keyboard
+.keyboardRed {
+  background-color: #de6868;
+  color: $white;
+}
+.keyboardBlue {
+  background-color: #5274cd;
+  color: $white;
+}
+.keyboardBrown {
+  background-color: #b39076;
+  color: $white;
+}
+.keyboardGreen {
+  background-color: #83c986;
+  color: $white;
+}
+.keyboardYellow {
+  background-color: #edbe62;
+  color: $white;
+}
+.keyboardOrange {
+  background-color: #e88c59;
+  color: $white;
+}
+.keyboardGray {
+  background-color: #b1b4be;
+  color: $white;
+}
+.keyboardLightGray {
+  background-color: #e6e6e6;
 
+  color: $mainColor;
+}
+.keyboardWhite {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
 
+  border: 1px solid #8b94b2;
+}

@@ -16,19 +16,41 @@ export class BusStatusComponent implements OnInit {
   myForm = this.fb.group({
     keyword: this.fb.control('')
   });
+
+  private get keywordFrmCtrl() {
+    return this.myForm.get('keyword');
+  }
+
   options: BaseCity[] = [];
   filteredOptions: Observable<BaseCity[]> = of([]);
 
-  lstKeyboardLineBtn = [
+
+  lstKeyboardBtn = [
     { displayName: '紅', class: 'keyboardRed' },
     { displayName: '藍', class: 'keyboardBlue' },
+    { displayName: '1', class: 'keyboardLightGray' },
+    { displayName: '2', class: 'keyboardLightGray' },
+    { displayName: '3', class: 'keyboardLightGray' },
     { displayName: '棕', class: 'keyboardBrown' },
     { displayName: '綠', class: 'keyboardGreen' },
-    { displayName: '黃', class: 'keyboardYello' },
+    { displayName: '4', class: 'keyboardLightGray' },
+    { displayName: '5', class: 'keyboardLightGray' },
+    { displayName: '6', class: 'keyboardLightGray' },
+    { displayName: '黃', class: 'keyboardYellow' },
     { displayName: '橘', class: 'keyboardOrange' },
+    { displayName: '7', class: 'keyboardLightGray' },
+    { displayName: '8', class: 'keyboardLightGray' },
+    { displayName: '9', class: 'keyboardLightGray' },
     { displayName: 'F', class: 'keyboardWhite' },
     { displayName: '更多', class: 'keyboardGray' },
+    { displayName: 'C', class: 'keyboardLightGray' },
+    { displayName: '0', class: 'keyboardLightGray' },
+    { displayName: '', class: 'keyboardLightGray' },
+
   ]
+
+
+
 
   constructor(private fb: FormBuilder, private BasicService: BasicService) {
 
@@ -36,16 +58,23 @@ export class BusStatusComponent implements OnInit {
   async ngOnInit() {
     this.options = await this.BasicService.getCity();
 
-    this.filteredOptions = this.myForm.get('keyword')!.valueChanges.pipe(
+    this.filteredOptions = this.keywordFrmCtrl!.valueChanges.pipe(
       startWith(''),
       debounceTime(300),
       map((value) => this._filter(value)),
-      tap(v => console.log(v))
     );
   }
 
-  search() {
+  backSpace() {
+    const currentKeyword: string = this.keywordFrmCtrl?.value ?? '';
 
+    this.keywordFrmCtrl?.patchValue(currentKeyword.slice(0, currentKeyword.length - 1));
+  }
+
+  search(keyword: string) {
+    const currentKeyword = this.keywordFrmCtrl?.value ?? '';
+
+    this.keywordFrmCtrl?.patchValue(currentKeyword + keyword);
   }
 
 

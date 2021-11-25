@@ -17,6 +17,8 @@
     margin-bottom: 15px;
   }
   .keywordContainer {
+    display: flex;
+    align-items: center;
     input {
       background-color: #e5e5e5;
       width: 300px;
@@ -27,10 +29,10 @@
       font-size: 16px;
     }
     .action {
-      display: inline;
+      display: flex;
+      align-items: center;
       .reset {
         margin-left: -30px;
-        vertical-align: middle;
         font-size: 25px;
       }
       .search {
@@ -69,9 +71,28 @@
     }
   }
   .keyboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
     box-shadow: $boxShadow;
     width: 433px;
     height: 320px;
     border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    .keyboardBtn {
+      font-size: 20px;
+      margin: auto;
+      text-align: center;
+      line-height: 50px;
+      width: 70px;
+      height: 50px;
+      border-radius: 10px;
+      a {
+        display: block;
+        width: 100%;
+      }
+    }
   }
 }

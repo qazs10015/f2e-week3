@@ -26,9 +26,9 @@
                   (click)="myForm.get('keyword')?.reset()"
                   ><i class="fas fa-times"></i
                 ></span>
-                <button class="pointer search" mat-icon-button>
+                <!-- <button class="pointer search" mat-icon-button>
                   <mat-icon>search</mat-icon>
-                </button>
+                </button> -->
               </div>
             </div>
           </form>
@@ -48,6 +48,22 @@
     <div class="searchResultList">
       <div class="title textCenter">搜尋結果</div>
     </div>
-    <div class="keyboard"></div>
+    <div class="keyboard">
+      <div
+        class="pointer"
+        *ngFor="let item of lstKeyboardBtn"
+        class="{{ item.class }} keyboardBtn"
+      >
+        <ng-container [ngSwitch]="item.displayName">
+          <ng-container *ngSwitchCase="''">
+            <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <a (click)="search(item.displayName)"> {{ item.displayName }}</a>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
