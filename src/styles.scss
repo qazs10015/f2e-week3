@@ -21,20 +21,63 @@ body {
 // tablet
 @media only screen and (max-width: 1199px) {
   body {
+    .nav {
+      display: none !important;
+    }
+    .mobileNav {
+      display: none !important;
+    }
   }
 }
 
 // mobile
-@media only screen and (max-width: 767) {
+@media only screen and (max-width: 767px) {
   body {
+    .nav {
+      display: none !important;
+    }
+    .mobileNav {
+      display: none !important;
+    }
+    .filterContainer {
+      height: 25vh !important;
+      .routeNameContainer {
+        display: flex;
+        flex-direction: column;
+        select {
+          width: 100% !important;
+          option {
+            max-width: 20% !important;
+          }
+        }
+      }
+    }
+    .searchResultContainer {
+      .keyboard {
+        display: none !important;
+      }
+    }
+    .container {
+      height: 40vh !important;
+      .content {
+        img {
+          transform: scale(0.4);
+          margin-bottom: -20px;
+        }
+        &:nth-child(2) {
+          font-size: 16px !important;
+        }
+      }
+      .bgImg {
+        @include setBackgroundImage("picMaskBgMobile.png", true);
+        top: -31px !important;
+      }
+      .action {
+        transform: scale(0.6);
+        li {
+          margin: 10px 20px !important;
+        }
+      }
+    }
   }
 }
-
-// html,
-// body {
-//   height: 100%;
-// }
-// body {
-//   margin: 0;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }

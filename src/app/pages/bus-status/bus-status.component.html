@@ -13,11 +13,7 @@
               class="citySelect"
               (change)="changeCity($event)"
             >
-              <option
-                *ngFor="let option of options; let idx = index"
-                [value]="option.City"
-                selected
-              >
+              <option *ngFor="let option of options" [value]="option.City">
                 {{ option.CityName }}
               </option>
             </select>

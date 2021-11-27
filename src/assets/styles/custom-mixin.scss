@@ -4,6 +4,11 @@
   border-radius: 0 0 20px 20px;
 }
 
-@mixin setBackgroundImage($imageName) {
-  background-image: url("../images/" + $imageName);
+@mixin setBackgroundImage($imageName, $important: false) {
+  $imagePath: "../images/" + $imageName;
+  background-image: url($imagePath) if-important($important);
+}
+
+@function if-important($important) {
+  @return #{if($important, "!important", "")};
 }
