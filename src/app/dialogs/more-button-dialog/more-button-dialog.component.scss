@@ -1,0 +1,29 @@
+@import "/src/assets/styles/custom-all.scss";
+
+.dialogTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+.optionGroup {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  padding: 20px;
+  .optionItem {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 207px;
+    height: 54px;
+    font-size: 18px;
+    background-color: $white;
+    border-radius: 20px;
+    border: 1px solid #8b94b2;
+    &:hover {
+      color: $white;
+      background-color: #bcc1d1;
+    }
+  }
+}

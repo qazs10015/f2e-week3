@@ -20,7 +20,7 @@ const materialModules = [
   MatSelectModule,
   MatIconModule,
   MatFormFieldModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
 ]
 const thirdModules = [GoogleMapsModule, NgxPaginationModule]
 

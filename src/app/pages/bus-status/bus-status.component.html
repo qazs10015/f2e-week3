@@ -83,7 +83,10 @@
                     {{ item.DestinationStopNameZh }}
                   </div>
                   <div *ngIf="item.RouteMapImageUrl">
-                    <a [href]="item.RouteMapImageUrl" target="_blank">路線圖</a>
+                    <span (click)="showRouteImage(item.RouteMapImageUrl)"
+                      >路線圖</span
+                    >
+                    <!-- <a [href]="item.RouteMapImageUrl" target="_blank">路線圖</a> -->
                   </div>
                 </div>
               </div>
@@ -105,6 +108,14 @@
           <ng-container [ngSwitch]="item.displayName">
             <ng-container *ngSwitchCase="''">
               <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
+            </ng-container>
+            <ng-container *ngSwitchCase="'更多'">
+              <a (click)="showMoreBtn()">{{ item.displayName }}</a>
+            </ng-container>
+            <ng-container *ngSwitchCase="'C'">
+              <a (click)="myForm.get('routeName')?.reset()">{{
+                item.displayName
+              }}</a>
             </ng-container>
 
             <ng-container *ngSwitchDefault>

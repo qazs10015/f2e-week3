@@ -1,16 +1,18 @@
-import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
-import { LocatorService } from '../../services/locator.service';
-import { LocationService } from '../../services/location.service';
-import { CityBusService } from '../../services/city-bus.service';
+import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
+import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/more-button-dialog.component';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
+import { BusRoute } from 'src/app/models/bus-route.model';
 import { BaseCity } from '../../models/basic-city.model';
 import { BasicService } from '../../services/basic.service';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { forkJoin, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { BusRoute } from 'src/app/models/bus-route.model';
-import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
-import { BusA1Data } from 'src/app/models/bus-a1-data.model';
+import { CityBusService } from '../../services/city-bus.service';
+import { LocationService } from '../../services/location.service';
+import { LocatorService } from '../../services/locator.service';
+import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
 
 
 @Component({
@@ -69,7 +71,8 @@ export class BusStatusComponent implements OnInit {
     private cityBusService: CityBusService,
     private locationService: LocationService,
     private locatorService: LocatorService,
-    private BasicService: BasicService) {
+    private BasicService: BasicService,
+    private dialog: MatDialog) {
 
   }
   async ngOnInit() {
@@ -116,7 +119,7 @@ export class BusStatusComponent implements OnInit {
           )
       }),
     ).subscribe(val => {
-      console.log(val);
+      // console.log(val);
       this.lstBusRoute = val;
     });
 
@@ -141,16 +144,54 @@ export class BusStatusComponent implements OnInit {
   }
 
   /** 搜尋資料 */
-  search(keyword: string) {
-    const currentRouteName = this.routeNameFrmCtrl?.value ?? '';
-
-    this.routeNameFrmCtrl?.patchValue(currentRouteName + keyword);
+  search(routeName: string) {
+    this.combineSearchString(routeName);
   }
+
 
   changeCity(e: any) {
     this.cityFrmCtrl.setValue(e.target.value)
   }
 
+  showRouteImage(imageUrl: string) {
+    const config: MatDialogConfig = {
+      data: imageUrl,
+      width: '60vw',
+      // height: '60vh'
+    }
+    const ref = this.dialog.open(RouteImageDialogComponent, config);
+    ref.afterClosed().subscribe(routeName => {
+      if (routeName) {
+        this.combineSearchString(routeName);
+      }
+
+    })
+
+  }
+
+  showMoreBtn() {
+    const config: MatDialogConfig = {
+      width: '60vw',
+      height: '60vh'
+    }
+    const ref = this.dialog.open(MoreButtonDialogComponent, config);
+    ref.afterClosed().subscribe(routeName => {
+      if (routeName) {
+        this.combineSearchString(routeName);
+      }
+
+    })
+  }
+
+
+  private combineSearchString(routeName: string) {
+    const currentRouteName = this.routeNameFrmCtrl?.value ?? '';
+    if (isNaN(Number(routeName))) {
+      this.routeNameFrmCtrl?.patchValue(routeName);
+    } else {
+      this.routeNameFrmCtrl?.patchValue(currentRouteName + routeName);
+    }
+  }
 
   // private _filter(value: string): BaseCity[] {
   //   let result = [];

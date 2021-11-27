@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
+import { MoreButtonDialogComponent } from './dialogs/more-button-dialog/more-button-dialog.component';
+import { RouteImageDialogComponent } from './dialogs/route-image-dialog/route-image-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    MoreButtonDialogComponent,
+    RouteImageDialogComponent
   ],
   imports: [
     BrowserModule,
