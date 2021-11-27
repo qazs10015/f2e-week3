@@ -1,31 +1,27 @@
 <form [formGroup]="myForm">
   <div class="container">
     <div class="searchBar">
-      <app-nav></app-nav>
-      <div class="siteMap">
-        <span>首頁</span>
-        <i class="fas fa-chevron-right"></i>
-        <span>公車動態</span>
-      </div>
-      <div class="filter">
+      <app-nav [detailMenuStyle]="false"></app-nav>
+      <app-site-map [detailMenuStyle]="false"></app-site-map>
+      <div class="filterContainer">
         <div>
           <div class="tip">*選擇縣市有助於您更快找到路線</div>
-          <div>
-            <div class="routeNameContainer">
-              <select
-                required
-                formControlName="city"
-                class="citySelect"
-                (change)="changeCity($event)"
+          <div class="routeNameContainer">
+            <select
+              required
+              formControlName="city"
+              class="citySelect"
+              (change)="changeCity($event)"
+            >
+              <option
+                *ngFor="let option of options; let idx = index"
+                [value]="option.City"
+                selected
               >
-                <option
-                  *ngFor="let option of options; let idx = index"
-                  [value]="option.City"
-                  selected
-                >
-                  {{ option.CityName }}
-                </option>
-              </select>
+                {{ option.CityName }}
+              </option>
+            </select>
+            <div class="keywordGroup">
               <input
                 type="text"
                 matInput
@@ -38,19 +34,8 @@
                   (click)="myForm.get('routeName')?.reset()"
                   ><i class="fas fa-times"></i
                 ></span>
-                <!-- <button class="pointer search" mat-icon-button>
-                  <mat-icon>search</mat-icon>
-                </button> -->
               </div>
             </div>
-            <!-- <mat-autocomplete #auto="matAutocomplete">
-            <mat-option
-              *ngFor="let option of filteredOptions | async"
-              [value]="option.CityName"
-            >
-              {{ option.CityName }}
-            </mat-option>
-          </mat-autocomplete> -->
           </div>
         </div>
       </div>
@@ -69,6 +54,11 @@
           </div>
           <cdk-virtual-scroll-viewport itemSize="50" class="scrolBar">
             <div
+              [routerLink]="[
+                '/busStatus',
+                myForm.get('city')?.value,
+                item.RouteName.Zh_tw
+              ]"
               class="routeInfoGroup pointer"
               *cdkVirtualFor="let item of lstBusRoute"
             >

@@ -1,0 +1,45 @@
+<app-nav [detailMenuStyle]="true"></app-nav>
+<app-site-map [detailMenuStyle]="true"></app-site-map>
+<div class="routeDetailContainer">
+  <div class="routeInfoGroup textCenter">
+    <div class="action">
+      <img
+        (click)="showScheduleList()"
+        class="actionBtn pointer"
+        src="assets/icons/scheduleList.png"
+        alt="scheduleList.png"
+      />
+      <span class="pointer" (click)="showScheduleList()">公車班表</span>
+    </div>
+
+    <div class="routeBasicInfo" *ngIf="routeDetail">
+      <div class="title">{{ routeDetail.RouteName?.Zh_tw }}</div>
+      <div>
+        {{ routeDetail?.DepartureStopNameZh }} -
+        {{ routeDetail?.DestinationStopNameZh }}
+      </div>
+    </div>
+  </div>
+  <div class="stopsGroup">
+    <div class="stopInfo">
+      <div class="directionGroup">
+        <div class="direction">
+          <span>行駛方向 </span>
+          <div>往 龍潭站</div>
+        </div>
+        <div (click)="changeDirection()">
+          <img src="assets/icons/exchange.png" alt="exchange.png" />
+        </div>
+      </div>
+      <hr />
+      <div class="stopList">
+        <!-- TODO:測試往返的資料 -->
+        <p *ngFor="let stopData of lstStopData">
+          {{ stopData.bus | json }}
+        </p>
+      </div>
+    </div>
+
+    <div class="googleMap"></div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 <div class="nav">
   <div class="logo">
-    <a [routerLink]="'/home'"
-      ><img src="assets/images/logo.png" alt="logo.png"
-    /></a>
+    <a [routerLink]="'/home'">
+      <img [src]="logoImg" alt="logo.png" />
+    </a>
   </div>
-  <div class="menu">
+  <div class="menu" [ngClass]="{ detailMenuStyle: detailMenuStyle }">
     <ul>
       <li><a [routerLink]="'/busStatus'">公車動態</a></li>
       <li><a [routerLink]="'/station'">附近站點</a></li>

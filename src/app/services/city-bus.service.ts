@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BusA1Data } from '../models/bus-a1-data.model';
 import { BusN1EstimateTime } from '../models/bus-n1-estimate-time.model';
 import { BusRoute } from '../models/bus-route.model';
+import { BusStopOfRoute } from '../models/bus-stop-of-route.model';
 import { BusVehicleInfo } from '../models/bus-vehicle-info.model';
 
 @Injectable({
@@ -79,6 +80,20 @@ export class CityBusService {
 
 
     return this.http.get<BusVehicleInfo[]>(`${this.apiUrl}Vehicle/City/${city}`, { params }).toPromise();
+  }
+
+  /** 取得站序資料 */
+  getStops(city: string, routeName = '') {
+    let params: any = {
+      $format: 'JSON'
+    }
+
+    let url = `${this.apiUrl}StopOfRoute/City/${city}`;
+
+    if (routeName) {
+      url += `/${routeName}`;
+    }
+    return this.http.get<BusStopOfRoute[]>(url, { params }).toPromise();
   }
 
 }

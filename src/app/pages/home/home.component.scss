@@ -30,7 +30,14 @@
     ul {
       display: flex;
       li {
-        margin: 0 40px;
+        margin: 10px 40px;
+        .actionBtn {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+        }
       }
     }
   }

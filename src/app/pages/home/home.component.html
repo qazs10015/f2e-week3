@@ -1,4 +1,4 @@
-<app-nav></app-nav>
+<app-nav [detailMenuStyle]="false"></app-nav>
 <div class="container">
   <div class="bgImg"></div>
 
@@ -11,24 +11,36 @@
   <div class="action">
     <ul>
       <li>
-        <a [routerLink]="'/busStatus'"
-          ><img src="assets/icons/busStatus.png" alt=""
-        /></a>
+        <div class="actionBtn">
+          <a [routerLink]="'/busStatus'"
+            ><img src="assets/icons/busStatus.png" alt="busStatus.png"
+          /></a>
+          公車動態
+        </div>
       </li>
       <li>
-        <a [routerLink]="'/station'"
-          ><img src="assets/icons/station.png" alt=""
-        /></a>
+        <div class="actionBtn">
+          <a [routerLink]="'/station'"
+            ><img src="assets/icons/station.png" alt="station.png"
+          /></a>
+          附近站點
+        </div>
       </li>
       <li>
-        <a [routerLink]="'/scheduleList'"
-          ><img src="assets/icons/scheduleList.png" alt=""
-        /></a>
+        <div class="actionBtn">
+          <a [routerLink]="'/scheduleList'"
+            ><img src="assets/icons/scheduleList.png" alt="scheduleList.png"
+          /></a>
+          班表查詢
+        </div>
       </li>
       <li>
-        <a [routerLink]="'/favarite'"
-          ><img src="assets/icons/favarite.png" alt=""
-        /></a>
+        <div class="actionBtn">
+          <a [routerLink]="'/favarite'"
+            ><img src="assets/icons/favarite.png" alt="favarite.png"
+          /></a>
+          我的收藏
+        </div>
       </li>
     </ul>
   </div>

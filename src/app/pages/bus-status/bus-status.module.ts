@@ -6,11 +6,13 @@ import { BusStatusComponent } from './bus-status.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BusStatusDetailComponent } from './bus-status-detail/bus-status-detail.component';
 
 
 @NgModule({
   declarations: [
-    BusStatusComponent
+    BusStatusComponent,
+    BusStatusDetailComponent
   ],
   imports: [
     CommonModule,
