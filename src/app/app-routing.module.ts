@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BusStatusComponent } from './pages/bus-status/bus-status.component';
-import { FavariteComponent } from './pages/favarite/favarite.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ScheduleListComponent } from './pages/schedule-list/schedule-list.component';
-import { StationComponent } from './pages/station/station.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },

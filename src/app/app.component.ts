@@ -1,4 +1,4 @@
-import { BasicService } from './../services/basic.service';
+import { BasicService } from './services/basic.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'f2e-week3';
-  constructor(private basicService: BasicService) {
+  constructor() {
 
   }
   async ngOnInit() {
-    const aa = await this.basicService.getCity();
   }
 }

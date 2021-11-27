@@ -5,7 +5,7 @@ import { BusStatusRoutingModule } from './bus-status-routing.module';
 import { BusStatusComponent } from './bus-status.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({

@@ -9,15 +9,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 const materialModules = [
+  ScrollingModule,
   MatAutocompleteModule,
   MatInputModule,
   MatDialogModule,
   MatRadioModule,
   MatSelectModule,
   MatIconModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSlideToggleModule
 ]
 const thirdModules = [GoogleMapsModule, NgxPaginationModule]
 
@@ -29,7 +32,7 @@ const thirdModules = [GoogleMapsModule, NgxPaginationModule]
   ],
   exports: [
     ...materialModules,
-    ...thirdModules
+    ...thirdModules,
   ]
 })
 export class SharedModule { }
