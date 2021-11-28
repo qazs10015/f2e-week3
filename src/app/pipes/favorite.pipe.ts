@@ -10,7 +10,6 @@ export class FavoritePipe implements PipeTransform {
 
   }
   transform(val: any): boolean {
-    debugger
     return this.utilityService.isSaveFavorite(val.City, val.RouteName.Zh_tw);
   }
 

@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SiteMapComponent implements OnInit {
 
+  @Input() pageName = '';
   @Input() detailMenuStyle = false;
   constructor() { }
 

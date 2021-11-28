@@ -1,1 +1,59 @@
-<p>favarite works!</p>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav [fixedInViewport]="true">
+    This is the sidenav, yay
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-button (click)="sidenav.toggle()">Toggle sidenav</button>
+    <div class="favoriteContainer">
+      <div class="searchBar">
+        <app-nav [detailMenuStyle]="false"></app-nav>
+        <app-site-map
+          [detailMenuStyle]="false"
+          [pageName]="'我的收藏'"
+        ></app-site-map>
+        <div class="title textCenter white">我的收藏</div>
+      </div>
+
+      <div class="favoriteContent">
+        <div class="favoriteBox">
+          <cdk-virtual-scroll-viewport itemSize="30" class="cdkVirScrollBar">
+            <div
+              class="favoriteItem"
+              *cdkVirtualFor="let item of displayFavoriteList"
+            >
+              <div
+                class="routeInfo pointer"
+                (click)="redirect(item.City, item.RouteName.Zh_tw)"
+              >
+                <div class="routeTitle">
+                  <div>
+                    {{ item.RouteName?.Zh_tw }}
+                  </div>
+                </div>
+                <div>
+                  {{ item?.DepartureStopNameZh }} -
+                  {{ item?.DestinationStopNameZh }}
+                </div>
+              </div>
+              <div class="otherAction">
+                <div (click)="addFavorite(item.City, item.RouteName.Zh_tw)">
+                  <span class="red" *ngIf="item | favorite; else noFavorite">
+                    <i class="fas fa-heart"></i>
+                  </span>
+                  <ng-template #noFavorite>
+                    <i class="far fa-heart"></i>
+                  </ng-template>
+                </div>
+                <div>
+                  <span (click)="showRouteImage(item.RouteMapImageUrl)"
+                    >路線圖</span
+                  >
+                </div>
+              </div>
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
