@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DeviceDetectorService, DeviceType } from 'ngx-device-detector';
 import { forkJoin, timer } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
@@ -18,6 +19,8 @@ export class BusStatusDetailComponent implements OnInit {
 
   routeDetail: BusRoute = {} as BusRoute;
 
+  isShowMobileMap = false;
+
   lstStopData: any[] = [];
 
   /** 目前行駛方向
@@ -34,6 +37,7 @@ export class BusStatusDetailComponent implements OnInit {
 
   /** 20秒更新一次 */
   countDownTimer = 20;
+
   timer = timer(0, 1000).pipe(tap((v) => {
 
     if (this.countDownTimer === 1) {
@@ -43,13 +47,19 @@ export class BusStatusDetailComponent implements OnInit {
     // console.log(this.countDownTimer - v);
   }));
 
+  DeviceType = DeviceType;
+  deviceType = DeviceType.Desktop;
+
   constructor(
     private router: ActivatedRoute,
-    private cityBusService: CityBusService
+    private cityBusService: CityBusService,
+    public deviceDetectorService: DeviceDetectorService,
   ) { }
 
   async ngOnInit() {
     this.search();
+    this.deviceType = this.deviceDetectorService.getDeviceInfo().deviceType as DeviceType;
+
   }
 
   search() {
@@ -134,6 +144,10 @@ export class BusStatusDetailComponent implements OnInit {
 
       })
 
+  }
+
+  showMobileMap() {
+    this.isShowMobileMap = !this.isShowMobileMap;
   }
   showScheduleList() {
 

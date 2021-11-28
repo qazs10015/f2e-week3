@@ -1,139 +1,123 @@
-<mat-sidenav-container fullscreen>
-  <mat-sidenav #sidenav [fixedInViewport]="true">
-    This is the sidenav, yay
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-button (click)="sidenav.toggle()">Toggle sidenav</button>
-    <form [formGroup]="myForm">
-      <div class="container">
-        <div class="searchBar">
-          <app-nav [detailMenuStyle]="false"></app-nav>
-          <app-site-map
-            [detailMenuStyle]="false"
-            [pageName]="'公車動態'"
-          ></app-site-map>
-          <div class="filterContainer">
-            <div>
-              <div class="tip">*選擇縣市有助於您更快找到路線</div>
-              <div class="routeNameContainer">
-                <select
-                  required
-                  formControlName="city"
-                  class="citySelect"
-                  (change)="changeCity($event)"
-                >
-                  <option *ngFor="let option of options" [value]="option.City">
-                    {{ option.CityName }}
-                  </option>
-                </select>
-                <div class="keywordGroup">
-                  <input
-                    type="text"
-                    matInput
-                    placeholder="請輸入關鍵字"
-                    formControlName="routeName"
-                  />
-                  <div class="action">
-                    <span
-                      class="pointer reset"
-                      (click)="myForm.get('routeName')?.reset()"
-                      ><i class="fas fa-times"></i
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="searchResultContainer">
-          <div class="searchResultList">
-            <div class="title textCenter">搜尋結果</div>
-            <div
-              class="searchResultContent"
-              *ngIf="lstBusRoute.length > 0; else noResult"
+<form [formGroup]="myForm">
+  <div class="container">
+    <div class="searchBar">
+      <app-nav [detailMenuStyle]="false"></app-nav>
+      <app-site-map
+        [detailMenuStyle]="false"
+        [pageName]="'公車動態'"
+      ></app-site-map>
+      <div class="filterContainer">
+        <div>
+          <div class="tip">*選擇縣市有助於您更快找到路線</div>
+          <div class="routeNameContainer">
+            <select
+              required
+              formControlName="city"
+              class="citySelect"
+              (change)="changeCity($event)"
             >
-              <div class="textRight pd10">
-                <mat-slide-toggle formControlName="vehicleType"
-                  >僅顯示提供無障礙車輛之路線</mat-slide-toggle
-                >
+              <option *ngFor="let option of options" [value]="option.City">
+                {{ option.CityName }}
+              </option>
+            </select>
+            <div class="keywordGroup">
+              <input
+                type="text"
+                matInput
+                placeholder="請輸入關鍵字"
+                formControlName="routeName"
+              />
+              <div class="action">
+                <span
+                  class="pointer reset"
+                  (click)="myForm.get('routeName')?.reset()"
+                  ><i class="fas fa-times"></i
+                ></span>
               </div>
-              <cdk-virtual-scroll-viewport
-                itemSize="50"
-                class="cdkVirScrollBar"
-              >
-                <div
-                  class="routeInfoGroup pointer"
-                  *cdkVirtualFor="let item of lstBusRoute"
-                >
-                  <div class="routeItem pd10">
-                    <div
-                      class="routeInfo"
-                      (click)="redirect(item.RouteName.Zh_tw)"
-                    >
-                      <div class="routeTitle">
-                        <div>
-                          {{ item.RouteName.Zh_tw }}
-                        </div>
-                      </div>
-                      <div>
-                        {{ item.DepartureStopNameZh }} -
-                        {{ item.DestinationStopNameZh }}
-                      </div>
-                    </div>
-
-                    <div class="otherAction pointer">
-                      <div (click)="addFavorite(item.RouteName.Zh_tw)">
-                        <i
-                          [class]="
-                            changeFavoriteClass(item.City, item.RouteName.Zh_tw)
-                          "
-                        ></i>
-                      </div>
-                      <div>
-                        <span (click)="showRouteImage(item.RouteMapImageUrl)"
-                          >路線圖</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </cdk-virtual-scroll-viewport>
-            </div>
-            <ng-template #noResult>
-              <div class="searchNoResult">
-                <div class="searchNoResultInfo">很抱歉，找不到符合的路線</div>
-              </div>
-            </ng-template>
-          </div>
-          <div class="keyboard">
-            <div
-              class="pointer"
-              *ngFor="let item of lstKeyboardBtn"
-              class="{{ item.className }} keyboardBtn"
-            >
-              <ng-container [ngSwitch]="item.displayName">
-                <ng-container *ngSwitchCase="''">
-                  <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
-                </ng-container>
-                <ng-container *ngSwitchCase="'更多'">
-                  <a (click)="showMoreBtn()">{{ item.displayName }}</a>
-                </ng-container>
-                <ng-container *ngSwitchCase="'C'">
-                  <a (click)="myForm.get('routeName')?.reset()">{{
-                    item.displayName
-                  }}</a>
-                </ng-container>
-
-                <ng-container *ngSwitchDefault>
-                  <a (click)="search(item.displayName)">
-                    {{ item.displayName }}</a
-                  >
-                </ng-container>
-              </ng-container>
             </div>
           </div>
         </div>
       </div>
-    </form>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </div>
+    <div class="searchResultContainer">
+      <div class="searchResultList">
+        <div class="title textCenter">搜尋結果</div>
+        <div
+          class="searchResultContent"
+          *ngIf="lstBusRoute.length > 0; else noResult"
+        >
+          <div class="textRight pd10">
+            <mat-slide-toggle formControlName="vehicleType"
+              >僅顯示提供無障礙車輛之路線</mat-slide-toggle
+            >
+          </div>
+          <cdk-virtual-scroll-viewport itemSize="50" class="cdkVirScrollBar">
+            <div
+              class="routeInfoGroup pointer"
+              *cdkVirtualFor="let item of lstBusRoute"
+            >
+              <div class="routeItem pd10">
+                <div class="routeInfo" (click)="redirect(item.RouteName.Zh_tw)">
+                  <div class="routeTitle">
+                    <div>
+                      {{ item.RouteName.Zh_tw }}
+                    </div>
+                  </div>
+                  <div>
+                    {{ item.DepartureStopNameZh }} -
+                    {{ item.DestinationStopNameZh }}
+                  </div>
+                </div>
+
+                <div class="otherAction pointer">
+                  <div (click)="addFavorite(item.RouteName.Zh_tw)">
+                    <i
+                      [class]="
+                        changeFavoriteClass(item.City, item.RouteName.Zh_tw)
+                      "
+                    ></i>
+                  </div>
+                  <div>
+                    <span (click)="showRouteImage(item.RouteMapImageUrl)"
+                      >路線圖</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </div>
+        <ng-template #noResult>
+          <div class="searchNoResult">
+            <div class="searchNoResultInfo">很抱歉，找不到符合的路線</div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="keyboard">
+        <div
+          class="pointer"
+          *ngFor="let item of lstKeyboardBtn"
+          class="{{ item.className }} keyboardBtn"
+        >
+          <ng-container [ngSwitch]="item.displayName">
+            <ng-container *ngSwitchCase="''">
+              <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
+            </ng-container>
+            <ng-container *ngSwitchCase="'更多'">
+              <a (click)="showMoreBtn()">{{ item.displayName }}</a>
+            </ng-container>
+            <ng-container *ngSwitchCase="'C'">
+              <a (click)="myForm.get('routeName')?.reset()">{{
+                item.displayName
+              }}</a>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <a (click)="search(item.displayName)"> {{ item.displayName }}</a>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

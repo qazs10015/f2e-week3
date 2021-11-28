@@ -122,5 +122,52 @@ body {
         }
       }
     }
+
+    .favoriteContainer {
+      .searchBar {
+        height: 22vh !important;
+      }
+      .favoriteBox {
+        width: 75vw !important;
+        height: 68vh !important;
+        padding: 5px 30px !important;
+      }
+    }
+
+    .routeDetailContainer {
+      .routeInfoGroup {
+        padding: 10px 5px !important;
+        .action {
+          justify-content: flex-start !important;
+          margin-left: -20px;
+          flex-direction: column;
+          .scheduleList {
+            display: none;
+          }
+        }
+        grid-template-columns: repeat(3, 1fr) !important;
+        .mobileGoogleMapBtn {
+          display: block !important;
+          font-size: 45px;
+          color: white;
+          line-height: 100px;
+        }
+        .routeBasicInfo {
+          font-size: 14px !important;
+        }
+        .action {
+          margin-bottom: 0;
+        }
+      }
+      .stopInfo {
+        width: 90% !important;
+        margin: 0 auto !important;
+        height: 50vh !important;
+        padding: 0 !important;
+      }
+      .stopsGroup {
+        justify-content: flex-start !important;
+      }
+    }
   }
 }

@@ -2,6 +2,17 @@
 
 <app-nav [detailMenuStyle]="true"></app-nav>
 <app-site-map [detailMenuStyle]="true" [pageName]="'公車動態'"></app-site-map>
+<!-- mobile 顯示 -->
+<div
+  class="googleMap"
+  *ngIf="deviceType !== DeviceType.Desktop && isShowMobileMap"
+>
+  <app-custom-google-map
+    [lstStopData]="lstStopData"
+    [currentDirection]="currentDirection"
+  ></app-custom-google-map>
+</div>
+
 <div class="routeDetailContainer">
   <div class="routeInfoGroup textCenter">
     <div class="action">
@@ -11,9 +22,13 @@
         src="assets/icons/scheduleList.png"
         alt="scheduleList.png"
       />
-      <span class="pointer" (click)="showScheduleList()">公車班表</span>
+      <span class="pointer scheduleList" (click)="showScheduleList()"
+        >公車班表</span
+      >
     </div>
-
+    <div class="mobileGoogleMapBtn" (click)="showMobileMap()">
+      <i class="fas fa-map-marked-alt"></i>
+    </div>
     <div class="routeBasicInfo" *ngIf="routeDetail">
       <div class="title">{{ routeDetail.RouteName?.Zh_tw }}</div>
       <div>
@@ -80,7 +95,8 @@
       </div>
     </div>
 
-    <div class="googleMap">
+    <!-- PC 顯示 -->
+    <div class="googleMap" *ngIf="deviceType === DeviceType.Desktop">
       <app-custom-google-map
         [lstStopData]="lstStopData"
         [currentDirection]="currentDirection"

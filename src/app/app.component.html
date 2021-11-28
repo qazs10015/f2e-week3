@@ -1,5 +1,27 @@
 <div class="container">
-  <router-outlet></router-outlet>
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav (click)="sidenav.toggle()">
+      <div class="closeSideNav pointer">
+        <i class="fas fa-times"></i>
+      </div>
+      <ul class="mobileMenu">
+        <li><a [routerLink]="'/busStatus'">公車動態</a></li>
+        <li><a [routerLink]="'/station'">附近站點</a></li>
+        <li><a [routerLink]="'/scheduleList'">班表查詢</a></li>
+        <li><a [routerLink]="'/favarite'">我的收藏</a></li>
+      </ul>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="toolBar">
+        <!-- <button mat-button >Toggle sidenav</button> -->
+        <div (click)="sidenav.toggle()"><i class="fas fa-bars"></i></div>
+
+        <img src="assets/images/logo.png" alt="logo.png" />
+      </div>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
   <div class="footer">
     <div>HelloBus ©</div>

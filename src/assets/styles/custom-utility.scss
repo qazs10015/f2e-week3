@@ -52,3 +52,40 @@ select {
   background: url("../icons/arrow_drop_down_black_24dp.svg") white no-repeat
     calc(100% - 10px) !important; /* Better placement regardless of input width */
 }
+
+mat-sidenav {
+  width: 100vw;
+  background-color: $mainColor;
+  color: $white;
+  .closeSideNav {
+    padding: 20px;
+    font-size: 26px;
+  }
+  a {
+    color: $white;
+  }
+}
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26px;
+  height: 50vh;
+}
+.toolBar {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white;
+  font-size: 26px;
+  background-color: $mainColor;
+}
+
+.mobileGoogleMap {
+  display: none;
+}
+.mobileGoogleMapBtn {
+  display: none;
+}

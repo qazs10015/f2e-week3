@@ -1,8 +1,5 @@
 @import "/src/assets/styles/custom-all.scss";
 
-mat-sidenav-container {
-  width: 100%;
-}
 .searchBar {
   @include searchBar($mainColor);
 }
