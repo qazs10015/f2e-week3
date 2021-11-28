@@ -54,7 +54,9 @@
               {{ stopData?.statusMsg }}
             </div>
             <div class="busStatusGroup">
-              <div class="busStopName">{{ stopData?.stopName }}</div>
+              <div class="busStopName">
+                {{ idx + 1 }} {{ stopData?.stopName }}
+              </div>
               <div
                 class="busPlateNumb"
                 *ngIf="
