@@ -66,14 +66,6 @@ export class CustomGoogleMapComponent implements OnInit {
 
       // 整理所有站點的位置
       this.stopMarkers = this._lstStopData.map(item => {
-
-        // estimateTime,
-        //   stopUID: bus.StopUID,
-        //     stopName: stop.StopName.Zh_tw,
-        //       plateNumb: bus.PlateNumb,
-        //         statusMsg,
-        //         vehicle: lstVehicle.find(v => v.PlateNumb === bus.PlateNumb)?.VehicleType,
-        //           stopPos: stop.StopPosition,
         return {
           isCommingBus: item.estimateTime === 0,
           stopPos: { lat: item.stopPos.PositionLat, lng: item.stopPos.PositionLon },
@@ -81,6 +73,12 @@ export class CustomGoogleMapComponent implements OnInit {
           statusMsg: item.statusMsg
         }
       });
+
+      // 取第一個站位當作起始位置
+      if (this.startPosition.lat === 0) {
+
+        this.startPosition = this.stopMarkers[0].stopPos;
+      }
 
 
     }
@@ -119,8 +117,7 @@ export class CustomGoogleMapComponent implements OnInit {
     });
 
 
-    // 取第一個站位當作起始位置
-    this.startPosition = this.stopMarkers[0].stopPos;
+
 
   }
 

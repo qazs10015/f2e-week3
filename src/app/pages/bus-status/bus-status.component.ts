@@ -13,6 +13,8 @@ import { CityBusService } from '../../services/city-bus.service';
 import { LocationService } from '../../services/location.service';
 import { LocatorService } from '../../services/locator.service';
 import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -73,7 +75,8 @@ export class BusStatusComponent implements OnInit {
     private locationService: LocationService,
     private locatorService: LocatorService,
     private BasicService: BasicService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private router: Router) {
 
   }
   async ngOnInit() {
@@ -97,30 +100,25 @@ export class BusStatusComponent implements OnInit {
               let lstBusN1EstimateTime = (val[0] as BusN1EstimateTime[]);
               let lstBusRoute = (val[1] as BusRoute[]);
               let lstBusVehicleInfo = (val[2] as BusVehicleInfo[]);
-
+              debugger
               // 所有的即時資料的車牌號碼
               const lstPlantNumb = Array.from(new Set(lstBusN1EstimateTime.map(n1 => n1.PlateNumb)));
+              const filterVehicle = lstPlantNumb.filter(pn => lstBusVehicleInfo.find(bv => bv.PlateNumb === pn))
 
               // 以 車牌 為群組名稱，群組化資料
-              const newLstBusN1EstimateTime = lstPlantNumb.map(pn => {
+              const newLstBusN1EstimateTime = filterVehicle.map(pn => {
                 // 取出所有符合該車牌的資料
                 const lstMatchPlantNumb = lstBusN1EstimateTime.filter(n1 => n1.PlateNumb === pn);
-                // 過濾有無障礙資料
-                const filterVehicle = lstMatchPlantNumb.filter(mpn => lstBusVehicleInfo.filter(v => v.PlateNumb === mpn.PlateNumb));
 
-                return {
-                  PlantNumb: pn,
-                  data: filterVehicle
-                }
+                return lstMatchPlantNumb
               });
 
-              return lstBusRoute.filter(route =>
-                (newLstBusN1EstimateTime.filter(n1 => n1.data.filter(nn1 => nn1.RouteUID === route.RouteUID && nn1.RouteName === route.RouteName))));
+              return lstBusRoute.filter(route => newLstBusN1EstimateTime.find(n1 => n1.find(nn1 => nn1.RouteUID === route.RouteUID)));
             })
           )
       }),
     ).subscribe(val => {
-      // console.log(val);
+      console.log(val);
       this.lstBusRoute = val;
     });
 
@@ -184,7 +182,15 @@ export class BusStatusComponent implements OnInit {
     })
   }
 
+  addfavarite() {
 
+  }
+
+  redirect(routeName: string) {
+    this.router.navigate(['/busStatus', this.myForm.get('city')?.value, routeName])
+  }
+
+  /** 組合搜尋字串 */
   private combineSearchString(routeName: string) {
     const currentRouteName = this.routeNameFrmCtrl?.value ?? '';
     if (isNaN(Number(routeName))) {
