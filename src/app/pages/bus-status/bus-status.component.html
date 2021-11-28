@@ -81,17 +81,13 @@
                       </div>
                     </div>
 
-                    <div class="otherAction">
+                    <div class="otherAction pointer">
                       <div (click)="addFavorite(item.RouteName.Zh_tw)">
-                        <span
-                          class="red"
-                          *ngIf="item | favorite; else noFavorite"
-                        >
-                          <i class="fas fa-heart"></i>
-                        </span>
-                        <ng-template #noFavorite>
-                          <i class="far fa-heart"></i>
-                        </ng-template>
+                        <i
+                          [class]="
+                            changeFavoriteClass(item.City, item.RouteName.Zh_tw)
+                          "
+                        ></i>
                       </div>
                       <div>
                         <span (click)="showRouteImage(item.RouteMapImageUrl)"

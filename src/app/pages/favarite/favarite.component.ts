@@ -23,6 +23,10 @@ export class FavariteComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.search();
+  }
+
+  search() {
     const favoriteList = this.utilityService.getFavoriteList();
 
     const cityRouteData = favoriteList.map(item => this.cityBusService.getRoute(item.city));
@@ -49,6 +53,7 @@ export class FavariteComponent implements OnInit {
   /** 加入收藏 */
   addFavorite(city: string, routeName: string) {
     this.utilityService.addOrRemoveFavorite(city, routeName);
+    this.search();
   }
 
 

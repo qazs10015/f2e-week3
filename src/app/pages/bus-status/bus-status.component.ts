@@ -103,7 +103,6 @@ export class BusStatusComponent implements OnInit {
               let lstBusN1EstimateTime = (val[0] as BusN1EstimateTime[]);
               let lstBusRoute = (val[1] as BusRoute[]);
               let lstBusVehicleInfo = (val[2] as BusVehicleInfo[]);
-              debugger
               // 所有的即時資料的車牌號碼
               const lstPlantNumb = Array.from(new Set(lstBusN1EstimateTime.map(n1 => n1.PlateNumb)));
               const filterVehicle = lstPlantNumb.filter(pn => lstBusVehicleInfo.find(bv => bv.PlateNumb === pn))
@@ -183,6 +182,10 @@ export class BusStatusComponent implements OnInit {
       }
 
     })
+  }
+
+  changeFavoriteClass(city: string, routeName: string) {
+    return this.utilityService.isSaveFavorite(city, routeName) ? 'fas fa-heart red' : 'far fa-heart';
   }
 
   /** 加入收藏 */
