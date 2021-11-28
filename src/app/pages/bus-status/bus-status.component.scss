@@ -101,7 +101,6 @@ mat-sidenav-container {
           width: 339px;
           height: 71px;
           display: flex;
-          flex-direction: column;
           justify-content: space-between;
           margin: 0 auto;
           border-radius: 12px;
@@ -118,8 +117,16 @@ mat-sidenav-container {
           .routeInfo {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-start;
             color: $black;
+            flex-direction: column;
+            width: 85%;
+          }
+          .otherAction {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
           }
         }
       }

@@ -17,7 +17,7 @@ import { RouteImageDialogComponent } from './dialogs/route-image-dialog/route-im
     AppComponent,
     HomeComponent,
     MoreButtonDialogComponent,
-    RouteImageDialogComponent
+    RouteImageDialogComponent,
   ],
   imports: [
     BrowserModule,

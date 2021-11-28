@@ -63,24 +63,37 @@
                   *cdkVirtualFor="let item of lstBusRoute"
                 >
                   <div class="routeItem pd10">
-                    <div class="routeTitle">
-                      <div (click)="redirect(item.RouteName.Zh_tw)">
-                        {{ item.RouteName.Zh_tw }}
+                    <div
+                      class="routeInfo"
+                      (click)="redirect(item.RouteName.Zh_tw)"
+                    >
+                      <div class="routeTitle">
+                        <div>
+                          {{ item.RouteName.Zh_tw }}
+                        </div>
                       </div>
-                      <div (click)="addfavarite()">
-                        <i class="far fa-heart"></i>
-                      </div>
-                    </div>
-                    <div class="routeInfo">
-                      <div (click)="redirect(item.RouteName.Zh_tw)">
+                      <div>
                         {{ item.DepartureStopNameZh }} -
                         {{ item.DestinationStopNameZh }}
                       </div>
-                      <div *ngIf="item.RouteMapImageUrl">
+                    </div>
+
+                    <div class="otherAction">
+                      <div (click)="addFavorite(item.RouteName.Zh_tw)">
+                        <span
+                          class="red"
+                          *ngIf="item | favorite; else noFavorite"
+                        >
+                          <i class="fas fa-heart"></i>
+                        </span>
+                        <ng-template #noFavorite>
+                          <i class="far fa-heart"></i>
+                        </ng-template>
+                      </div>
+                      <div>
                         <span (click)="showRouteImage(item.RouteMapImageUrl)"
                           >路線圖</span
                         >
-                        <!-- <a [href]="item.RouteMapImageUrl" target="_blank">路線圖</a> -->
                       </div>
                     </div>
                   </div>

@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { FavoritePipe } from '../pipes/favorite.pipe';
+
 const materialModules = [
   ScrollingModule,
   MatAutocompleteModule,
@@ -28,15 +30,17 @@ const materialModules = [
 const thirdModules = [GoogleMapsModule, NgxPaginationModule]
 
 
+
 @NgModule({
-  declarations: [],
+  declarations: [FavoritePipe],
   imports: [
     CommonModule,
-    ...materialModules
+    ...materialModules,
   ],
   exports: [
     ...materialModules,
     ...thirdModules,
+    FavoritePipe
   ]
 })
 export class SharedModule { }

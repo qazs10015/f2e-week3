@@ -1,3 +1,4 @@
+import { RouteName } from './../../models/bus-a1-data.model';
 import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
 import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/more-button-dialog.component';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +16,7 @@ import { LocatorService } from '../../services/locator.service';
 import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/services/utility.service';
 
 
 @Component({
@@ -76,6 +78,7 @@ export class BusStatusComponent implements OnInit {
     private locatorService: LocatorService,
     private BasicService: BasicService,
     private dialog: MatDialog,
+    private utilityService: UtilityService,
     private router: Router) {
 
   }
@@ -182,10 +185,13 @@ export class BusStatusComponent implements OnInit {
     })
   }
 
-  addfavarite() {
-
+  /** 加入收藏 */
+  addFavorite(routeName: string) {
+    this.utilityService.addOrRemoveFavorite(this.myForm.get('city')?.value, routeName);
   }
 
+
+  /** 導頁 */
   redirect(routeName: string) {
     this.router.navigate(['/busStatus', this.myForm.get('city')?.value, routeName])
   }
