@@ -54,7 +54,6 @@ export class BusStatusDetailComponent implements OnInit {
   }
 
   search() {
-    console.log(123);
     const city = this.router.snapshot.paramMap.get('city') ?? '';
     const routeName = this.router.snapshot.paramMap.get('routeName') ?? '';
 
