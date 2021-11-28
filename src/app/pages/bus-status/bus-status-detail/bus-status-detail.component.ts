@@ -1,13 +1,13 @@
-import { forkJoin, of, timer } from 'rxjs';
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BusRoute } from 'src/app/models/bus-route.model';
-import { CityBusService } from 'src/app/services/city-bus.service';
+import { forkJoin, timer } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
+import { BusRoute } from 'src/app/models/bus-route.model';
 import { BusStopOfRoute } from 'src/app/models/bus-stop-of-route.model';
 import { BusVehicleInfo } from 'src/app/models/bus-vehicle-info.model';
+import { CityBusService } from 'src/app/services/city-bus.service';
+
 
 
 @Component({
@@ -20,17 +20,16 @@ export class BusStatusDetailComponent implements OnInit {
 
   lstStopData: any[] = [];
 
-
   /** 目前行駛方向
    *  0：去
    *  1：返
    */
   currentDirection = 0;
 
-  /** 出發站 */
+  /** 出發站 名稱 */
   departureStopName = '';
 
-  /** 終點站 */
+  /** 終點站 名稱*/
   distinationStopName = '';
 
   /** 20秒更新一次 */
@@ -105,7 +104,8 @@ export class BusStatusDetailComponent implements OnInit {
                   stopName: stop.StopName.Zh_tw,
                   plateNumb: bus.PlateNumb,
                   statusMsg,
-                  vehicle: lstVehicle.find(v => v.PlateNumb === bus.PlateNumb)?.VehicleType
+                  vehicle: lstVehicle.find(v => v.PlateNumb === bus.PlateNumb)?.VehicleType,
+                  stopPos: stop.StopPosition,
                 }
               } else {
                 // 無法 mappging 的資料
@@ -115,7 +115,8 @@ export class BusStatusDetailComponent implements OnInit {
                   stopName: stop.StopName.Zh_tw,
                   plateNumb: '---',
                   statusMsg: '未發車',
-                  vehicle: ''
+                  vehicle: '',
+                  stopPos: stop.StopPosition
                 }
               }
               return result;
@@ -130,6 +131,7 @@ export class BusStatusDetailComponent implements OnInit {
         this.lstStopData = val[this.currentDirection];
         this.departureStopName = this.lstStopData[0].stopName;
         this.distinationStopName = this.lstStopData[this.lstStopData.length - 1].stopName;
+
       })
 
   }

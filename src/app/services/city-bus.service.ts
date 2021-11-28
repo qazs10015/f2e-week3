@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BusA1Data } from '../models/bus-a1-data.model';
 import { BusN1EstimateTime } from '../models/bus-n1-estimate-time.model';
 import { BusRoute } from '../models/bus-route.model';
+import { BusShape } from '../models/bus-shape.model';
 import { BusStopOfRoute } from '../models/bus-stop-of-route.model';
 import { BusVehicleInfo } from '../models/bus-vehicle-info.model';
 
@@ -29,7 +30,7 @@ export class CityBusService {
       params['$filter'] = keyword;
     }
 
-    return this.http.get<BusA1Data[]>(url, { params });
+    return this.http.get<BusA1Data[]>(url, { params }).toPromise();
   }
 
   /** 取得批次更新的預估公車到站資料 */
@@ -78,7 +79,6 @@ export class CityBusService {
       params['$filter'] = `VehicleType eq 1`
     }
 
-
     return this.http.get<BusVehicleInfo[]>(`${this.apiUrl}Vehicle/City/${city}`, { params }).toPromise();
   }
 
@@ -94,6 +94,20 @@ export class CityBusService {
       url += `/${routeName}`;
     }
     return this.http.get<BusStopOfRoute[]>(url, { params }).toPromise();
+  }
+
+  /** 市區公車之線型資料 */
+  getBusShape(city: string, routeName = '') {
+    let params: any = {
+      $format: 'JSON'
+    }
+
+    let url = `${this.apiUrl}Shape/City/${city}`;
+
+    if (routeName) {
+      url += `/${routeName}`;
+    }
+    return this.http.get<BusShape[]>(url, { params }).toPromise();
   }
 
 }

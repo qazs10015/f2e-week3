@@ -2,25 +2,28 @@
   <google-map
     class="map"
     height="50vh"
-    width="100%"
+    width="98%"
     [zoom]="zoom"
     [center]="startPosition"
     [options]="googleMapOptions"
   >
-    <!-- 起點的位置 -->
-    <map-marker
-      #marker="mapMarker"
-      [position]="startPosition"
-      [options]="markerOptions"
-    ></map-marker>
-
     <!-- 終點的位置 -->
     <map-marker
+      *ngFor="let item of stopMarkers; let idx = index"
       #marker="mapMarker"
-      [position]="endPosition"
-      [options]="markerOptions"
+      [position]="item.stopPos"
+      [options]="item.isCommingBus ? currentBusMarkerOption : markerOptions"
+      (mapClick)="openInfoWindow(marker, item)"
+      [label]="item.isCommingBus ? '' : (idx + 1).toString()"
     ></map-marker>
 
-    <!-- <map-polyline [options]="polyOptions" [path]="polyPath"></map-polyline> -->
+    <map-info-window>
+      <div class="googleInfoWindow">
+        <div class="title">{{ currentSelectInfoWindow.stopName }}</div>
+        <div class="statusMsg">{{ currentSelectInfoWindow.statusMsg }}</div>
+      </div>
+    </map-info-window>
+
+    <map-polyline [options]="polyOptions" [path]="polyPath"></map-polyline>
   </google-map>
 </div>

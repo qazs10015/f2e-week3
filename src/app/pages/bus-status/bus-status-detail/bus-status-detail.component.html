@@ -74,12 +74,15 @@
           </div>
         </cdk-virtual-scroll-viewport>
         <div>{{ countDownTimer }}秒後更新</div>
-        <!-- <div [style.display]="'none'">{{ timer | async }}</div> -->
+        <span [style.display]="'none'">{{ timer | async }}</span>
       </div>
     </div>
 
     <div class="googleMap">
-      <app-custom-google-map></app-custom-google-map>
+      <app-custom-google-map
+        [lstStopData]="lstStopData"
+        [currentDirection]="currentDirection"
+      ></app-custom-google-map>
     </div>
   </div>
 </div>
