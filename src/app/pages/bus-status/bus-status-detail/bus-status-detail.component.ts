@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService, DeviceType } from 'ngx-device-detector';
 import { forkJoin, timer } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ScheduleListDialogComponent } from 'src/app/dialogs/schedule-list-dialog/schedule-list-dialog.component';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
 import { BusRoute } from 'src/app/models/bus-route.model';
 import { BusStopOfRoute } from 'src/app/models/bus-stop-of-route.model';
@@ -50,27 +52,32 @@ export class BusStatusDetailComponent implements OnInit {
   DeviceType = DeviceType;
   deviceType = DeviceType.Desktop;
 
+
+  city = '';
+  routeName = '';
   constructor(
+    private dialog: MatDialog,
     private router: ActivatedRoute,
     private cityBusService: CityBusService,
     public deviceDetectorService: DeviceDetectorService,
   ) { }
 
   async ngOnInit() {
+
     this.search();
     this.deviceType = this.deviceDetectorService.getDeviceInfo().deviceType as DeviceType;
 
   }
 
   search() {
-    const city = this.router.snapshot.paramMap.get('city') ?? '';
-    const routeName = this.router.snapshot.paramMap.get('routeName') ?? '';
+    this.city = this.router.snapshot.paramMap.get('city') ?? '';
+    this.routeName = this.router.snapshot.paramMap.get('routeName') ?? '';
 
     forkJoin([
-      this.cityBusService.getRoute(city, routeName),
-      this.cityBusService.getEstimatedTimeOfArrival(city, routeName, `PlateNumb ne '-1'`),
-      this.cityBusService.getStops(city, routeName),
-      this.cityBusService.getVehicle(city, false),]).pipe(
+      this.cityBusService.getRoute(this.city, this.routeName),
+      this.cityBusService.getEstimatedTimeOfArrival(this.city, this.routeName, `PlateNumb ne '-1'`),
+      this.cityBusService.getStops(this.city, this.routeName),
+      this.cityBusService.getVehicle(this.city, false),]).pipe(
         map((val: any[]) => {
 
           // 路線資訊
@@ -146,11 +153,33 @@ export class BusStatusDetailComponent implements OnInit {
 
   }
 
+  /** 顯示手機板地圖 */
   showMobileMap() {
     this.isShowMobileMap = !this.isShowMobileMap;
   }
-  showScheduleList() {
 
+  /** 班表 */
+  async showScheduleList(city: string, routeName: string) {
+
+    const lstSchedule = await this.cityBusService.getScheduleList(city, routeName);
+
+    const timeTables = lstSchedule.map(item => item.Timetables);
+    // timeTables.map(t => t.map(item => item.StopTimes))
+    const sortTimeTables = timeTables.map(item => item.sort((a, b) => (Number(a.TripID) - Number(b.TripID))))
+    const stopTimes = sortTimeTables.map(st => st.map(item => item.StopTimes));
+    const newStopTimes = stopTimes.map(stopTimes => {
+      // 取得目的地名稱
+      const stopName = stopTimes.find(stItem => stItem[0].StopName.Zh_tw)![0].StopName.Zh_tw;
+      const lstArrivalTime = stopTimes.map(stItem => stItem.map(item => item.ArrivalTime)[0]);
+      return { stopName, lstArrivalTime }
+    });
+
+    const config: MatDialogConfig = {
+      data: newStopTimes,
+      width: '90vw',
+      // height: '60vh'
+    }
+    const ref = this.dialog.open(ScheduleListDialogComponent, config);
   }
 
   /** 切換 去 跟 返  */

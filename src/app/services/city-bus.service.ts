@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BusA1Data } from '../models/bus-a1-data.model';
 import { BusN1EstimateTime } from '../models/bus-n1-estimate-time.model';
 import { BusRoute } from '../models/bus-route.model';
+import { BusSchedule } from '../models/bus-schedule.model';
 import { BusShape } from '../models/bus-shape.model';
 import { BusStopOfRoute } from '../models/bus-stop-of-route.model';
 import { BusVehicleInfo } from '../models/bus-vehicle-info.model';
@@ -108,6 +109,20 @@ export class CityBusService {
       url += `/${routeName}`;
     }
     return this.http.get<BusShape[]>(url, { params }).toPromise();
+  }
+
+  /** 市區公車之預定班表及班距資料。一般市區公車班次較多時會採用【班距】式時刻表；班次較少時會採用【班表】式時刻表 */
+  getScheduleList(city: string, routeName = '') {
+    let params: any = {
+      $format: 'JSON'
+    }
+
+    let url = `${this.apiUrl}Schedule/City/${city}`;
+
+    if (routeName) {
+      url += `/${routeName}`;
+    }
+    return this.http.get<BusSchedule[]>(url, { params }).toPromise();
   }
 
 }

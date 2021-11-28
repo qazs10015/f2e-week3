@@ -1,0 +1,59 @@
+@import "/src/assets/styles/custom-all.scss";
+
+mat-sidenav-container {
+  width: 100%;
+}
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  height: 15vh;
+  align-items: flex-end;
+  .tip {
+    color: $mainColor2;
+    margin-bottom: 15px;
+  }
+  .routeNameContainer {
+    display: flex;
+    align-items: center;
+    .citySelect {
+      background-color: #e5e5e5 !important;
+      width: 150px;
+      border-radius: 10px;
+      border: none;
+      height: 50px;
+      padding: 5px 22px;
+      font-size: 16px;
+      margin: 0 10px 10px 0;
+    }
+    .keywordGroup {
+      display: flex;
+      margin: 0 10px 10px 0;
+      input {
+        background-color: #e5e5e5;
+        width: 300px;
+        border-radius: 10px;
+        border: none;
+        height: 40px;
+        padding: 5px 16px;
+        font-size: 16px;
+      }
+      .action {
+        display: flex;
+        align-items: center;
+        .reset {
+          margin-left: -30px;
+          font-size: 25px;
+        }
+        .search {
+          background-color: #e5e5e5;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          vertical-align: top;
+          margin-left: 20px;
+          border: none;
+        }
+      }
+    }
+  }
+}

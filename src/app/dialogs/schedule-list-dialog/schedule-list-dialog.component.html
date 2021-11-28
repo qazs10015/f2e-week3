@@ -1,0 +1,20 @@
+<div mat-dialog-title class="dialogTitle">
+  <h1>公車班表</h1>
+  <h1 class="pointer" mat-dialog-close><i class="fas fa-times"></i></h1>
+</div>
+<mat-dialog-content>
+  <div class="scheduleDialogContainer">
+    <div class="scheduleGroup" *ngFor="let scheduleItem of lstSchedule">
+      <div class="title scheduleItem textCenter">
+        {{ scheduleItem.stopName }}
+      </div>
+      <div
+        class="scheduleItem textCenter"
+        *ngFor="let item of scheduleItem.lstArrivalTime"
+      >
+        {{ item }}
+      </div>
+    </div>
+    <!-- <div class="scheduleGroup"></div> -->
+  </div>
+</mat-dialog-content>

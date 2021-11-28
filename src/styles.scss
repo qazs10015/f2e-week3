@@ -27,6 +27,7 @@ body {
     }
   }
 }
+// 未完成
 // tablet
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   body {
@@ -76,6 +77,9 @@ body {
     .mobileNav {
       display: "" !important;
     }
+    .toolBar {
+      display: flex !important;
+    }
     .filterContainer {
       height: 23vh !important;
       .routeNameContainer {
@@ -97,26 +101,30 @@ body {
         display: none !important;
       }
     }
-    .homeContainer {
+    .footer {
+      font-size: 12px;
+    }
+    .homeBackGroundImg {
       @include setBackgroundImage("picMaskBgMobile.png", true);
+      top: -5vh !important;
+    }
+    .homeContainer {
       margin-top: -46px !important;
+      height: 98vh !important;
       .content {
         justify-content: flex-start !important;
+        margin-top: 10vh;
         .imgContainer {
-          margin-top: 30px !important;
+          margin: 30px !important;
           img {
-            transform: scale(0.4);
-            margin-bottom: -20px;
+            //  <!-- <img src="assets/images/logo.png" alt="logo.png" /> -->
+            transform: scale(2);
+            content: url("assets/images/logo.png");
           }
-        }
-        img {
-          transform: scale(0.4);
-          margin-bottom: -20px;
         }
       }
       .action {
         transform: scale(0.6);
-        bottom: 6vh;
         li {
           margin: 10px 20px !important;
         }
@@ -125,11 +133,11 @@ body {
 
     .favoriteContainer {
       .searchBar {
-        height: 22vh !important;
+        height: 20vh !important;
       }
       .favoriteBox {
         width: 75vw !important;
-        height: 68vh !important;
+        height: 66vh !important;
         padding: 5px 30px !important;
       }
     }
@@ -154,6 +162,7 @@ body {
         }
         .routeBasicInfo {
           font-size: 14px !important;
+          width: 155px;
         }
         .action {
           margin-bottom: 0;

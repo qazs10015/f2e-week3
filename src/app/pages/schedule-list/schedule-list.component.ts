@@ -12,4 +12,6 @@ export class ScheduleListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
 }

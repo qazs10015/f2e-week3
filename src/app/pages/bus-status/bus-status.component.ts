@@ -1,22 +1,22 @@
-import { RouteName } from './../../models/bus-a1-data.model';
-import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
-import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/more-button-dialog.component';
+import { ScheduleListDialogComponent } from './../../dialogs/schedule-list-dialog/schedule-list-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { forkJoin, timer } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
 import { BusRoute } from 'src/app/models/bus-route.model';
+import { BusSchedule } from 'src/app/models/bus-schedule.model';
+import { UtilityService } from 'src/app/services/utility.service';
 import { BaseCity } from '../../models/basic-city.model';
 import { BasicService } from '../../services/basic.service';
 import { CityBusService } from '../../services/city-bus.service';
 import { LocationService } from '../../services/location.service';
 import { LocatorService } from '../../services/locator.service';
+import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/more-button-dialog.component';
+import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
 import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
-import { Route } from '@angular/compiler/src/core';
-import { Router } from '@angular/router';
-import { UtilityService } from 'src/app/services/utility.service';
 
 
 @Component({
@@ -103,6 +103,7 @@ export class BusStatusComponent implements OnInit {
               let lstBusN1EstimateTime = (val[0] as BusN1EstimateTime[]);
               let lstBusRoute = (val[1] as BusRoute[]);
               let lstBusVehicleInfo = (val[2] as BusVehicleInfo[]);
+
               // 所有的即時資料的車牌號碼
               const lstPlantNumb = Array.from(new Set(lstBusN1EstimateTime.map(n1 => n1.PlateNumb)));
               const filterVehicle = lstPlantNumb.filter(pn => lstBusVehicleInfo.find(bv => bv.PlateNumb === pn))
@@ -157,17 +158,10 @@ export class BusStatusComponent implements OnInit {
   showRouteImage(imageUrl: string) {
     const config: MatDialogConfig = {
       data: imageUrl,
-      width: '60vw',
-      // height: '60vh'
+      width: '90vw',
+      height: '80vh'
     }
     const ref = this.dialog.open(RouteImageDialogComponent, config);
-    ref.afterClosed().subscribe(routeName => {
-      if (routeName) {
-        this.combineSearchString(routeName);
-      }
-
-    })
-
   }
 
   showMoreBtn() {
@@ -199,6 +193,30 @@ export class BusStatusComponent implements OnInit {
     this.router.navigate(['/busStatus', this.myForm.get('city')?.value, routeName])
   }
 
+  /** 班表 */
+  async showScheduleList(routeName: string) {
+
+    const lstSchedule = await this.cityBusService.getScheduleList(this.myForm.get('city')?.value, routeName);
+
+    const timeTables = lstSchedule.map(item => item.Timetables);
+    // timeTables.map(t => t.map(item => item.StopTimes))
+    const sortTimeTables = timeTables.map(item => item.sort((a, b) => (Number(a.TripID) - Number(b.TripID))))
+    const stopTimes = sortTimeTables.map(st => st.map(item => item.StopTimes));
+    const newStopTimes = stopTimes.map(stopTimes => {
+      // 取得目的地名稱
+      const stopName = stopTimes.find(stItem => stItem[0].StopName.Zh_tw)![0].StopName.Zh_tw;
+      const lstArrivalTime = stopTimes.map(stItem => stItem.map(item => item.ArrivalTime)[0]);
+      return { stopName, lstArrivalTime }
+    });
+
+    const config: MatDialogConfig = {
+      data: newStopTimes,
+      width: '90vw',
+      // height: '60vh'
+    }
+    const ref = this.dialog.open(ScheduleListDialogComponent, config);
+  }
+
   /** 組合搜尋字串 */
   private combineSearchString(routeName: string) {
     const currentRouteName = this.routeNameFrmCtrl?.value ?? '';
@@ -208,17 +226,6 @@ export class BusStatusComponent implements OnInit {
       this.routeNameFrmCtrl?.patchValue(currentRouteName + routeName);
     }
   }
-
-  // private _filter(value: string): BaseCity[] {
-  //   let result = [];
-  //   if (value) {
-  //     const filterValue = value;
-  //     result = this.options.filter(option => option.CityName.includes(filterValue))
-  //   } else {
-  //     result = this.options;
-  //   }
-  //   return result;
-  // }
 
 }
 

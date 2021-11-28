@@ -65,6 +65,9 @@ mat-sidenav {
     color: $white;
   }
 }
+.mat-drawer-content {
+  height: 93vh !important;
+}
 .mobileMenu {
   display: flex;
   flex-direction: column;
@@ -87,5 +90,8 @@ mat-sidenav {
   display: none;
 }
 .mobileGoogleMapBtn {
+  display: none;
+}
+.toolBar {
   display: none;
 }

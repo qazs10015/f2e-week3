@@ -1,1 +1,41 @@
-<p>schedule-list works!</p>
+<!-- <div class="favoriteContainer">
+  <div class="searchBar">
+    <app-nav [detailMenuStyle]="false"></app-nav>
+    <app-site-map
+      [detailMenuStyle]="false"
+      [pageName]="'班表查詢'"
+    ></app-site-map>
+    <div class="filterContainer">
+      <div>
+        <div class="tip">*選擇縣市有助於您更快找到路線</div>
+        <div class="routeNameContainer">
+          <select
+            required
+            formControlName="city"
+            class="citySelect"
+            (change)="changeCity($event)"
+          >
+            <option *ngFor="let option of options" [value]="option.City">
+              {{ option.CityName }}
+            </option>
+          </select>
+          <div class="keywordGroup">
+            <input
+              type="text"
+              matInput
+              placeholder="請輸入關鍵字"
+              formControlName="routeName"
+            />
+            <div class="action">
+              <span
+                class="pointer reset"
+                (click)="myForm.get('routeName')?.reset()"
+                ><i class="fas fa-times"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

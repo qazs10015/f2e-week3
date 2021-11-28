@@ -1,8 +1,5 @@
 @import "/src/assets/styles/custom-all.scss";
 
-mat-sidenav-container {
-  width: 100%;
-}
 .favoriteContainer {
   .searchBar {
     @include searchBar($mainColor);
@@ -17,17 +14,17 @@ mat-sidenav-container {
     align-items: center;
     .favoriteBox {
       width: 50vw;
-      height: 58vh;
+      height: 53vh;
       display: flex;
       flex-wrap: wrap;
       padding: 30px;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
 
       .cdkVirScrollBar {
         width: 100%;
-        height: 100%;
+        height: 70%;
       }
 
       .favoriteItem {
@@ -54,7 +51,7 @@ mat-sidenav-container {
           align-items: flex-start;
           color: $black;
           flex-direction: column;
-          width: 85%;
+          width: 82%;
         }
         .otherAction {
           display: flex;

@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-sidenav-container fullscreen>
+  <mat-sidenav-container>
     <mat-sidenav #sidenav (click)="sidenav.toggle()">
       <div class="closeSideNav pointer">
         <i class="fas fa-times"></i>
@@ -7,7 +7,7 @@
       <ul class="mobileMenu">
         <li><a [routerLink]="'/busStatus'">公車動態</a></li>
         <li><a [routerLink]="'/station'">附近站點</a></li>
-        <li><a [routerLink]="'/scheduleList'">班表查詢</a></li>
+        <!-- <li><a [routerLink]="'/scheduleList'">班表查詢</a></li> -->
         <li><a [routerLink]="'/favarite'">我的收藏</a></li>
       </ul>
     </mat-sidenav>
