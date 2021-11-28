@@ -3,8 +3,8 @@ import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/mo
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { forkJoin, timer } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
 import { BusRoute } from 'src/app/models/bus-route.model';
 import { BaseCity } from '../../models/basic-city.model';
@@ -65,6 +65,7 @@ export class BusStatusComponent implements OnInit {
   ]
 
   lstBusRoute: any[] = [];
+
 
   constructor(
     private fb: FormBuilder,

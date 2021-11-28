@@ -1,5 +1,8 @@
 @import "/src/assets/styles/custom-all.scss";
 
+mat-sidenav-container {
+  width: 100%;
+}
 .searchBar {
   @include searchBar($mainColor);
 }
@@ -86,7 +89,7 @@
       // @include setBackgroundImage("signPic_default.png");
       // background-repeat: no-repeat;
       // background-position: 50% calc(50% - 42px);
-      .scrolBar {
+      .cdkVirScrollBar {
         width: 100%;
         height: 70%;
       }

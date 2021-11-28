@@ -17,35 +17,72 @@ body {
   font-family: "Noto Sans TC", "Roboto", sans-serif !important;
   height: 100%;
 }
-
-// tablet
-@media only screen and (max-width: 1199px) {
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
   body {
-    .nav {
-      display: none !important;
+    .nav .logo {
+      left: 4vw !important;
     }
-    .mobileNav {
-      display: none !important;
+    .siteMap {
+      margin: 0 0 16px 6vw !important;
+    }
+  }
+}
+// tablet
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  body {
+    .siteMap {
+      margin: 0 !important;
+      padding: 10px 0 !important;
+    }
+
+    .homeContainer {
+      @include setBackgroundImage("picMaskBgMobile.png", true);
+
+      .content {
+        // justify-content: flex-start !important;
+        height: 50% !important;
+        .imgContainer {
+          margin-top: 30px !important;
+          img {
+            transform: scale(0.6);
+            margin-bottom: -20px;
+          }
+        }
+        .title {
+          font-size: 25px !important;
+        }
+      }
+      .action {
+        // transform: scale(0.6);
+        bottom: 6vh;
+        li {
+          margin: 10px 20px !important;
+        }
+      }
     }
   }
 }
 
 // mobile
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 321px) and (max-width: 767px) {
   body {
+    .siteMap {
+      margin: 0 !important;
+      padding: 10px 0 !important;
+    }
     .nav {
       display: none !important;
     }
     .mobileNav {
-      display: none !important;
+      display: "" !important;
     }
     .filterContainer {
-      height: 25vh !important;
+      height: 23vh !important;
       .routeNameContainer {
         display: flex;
         flex-direction: column;
         select {
-          width: 100% !important;
+          width: 97% !important;
           option {
             max-width: 20% !important;
           }
@@ -53,27 +90,33 @@ body {
       }
     }
     .searchResultContainer {
+      .searchResultList {
+        margin: 0 !important;
+      }
       .keyboard {
         display: none !important;
       }
     }
-    .container {
-      height: 40vh !important;
+    .homeContainer {
+      @include setBackgroundImage("picMaskBgMobile.png", true);
+      margin-top: -46px !important;
       .content {
+        justify-content: flex-start !important;
+        .imgContainer {
+          margin-top: 30px !important;
+          img {
+            transform: scale(0.4);
+            margin-bottom: -20px;
+          }
+        }
         img {
           transform: scale(0.4);
           margin-bottom: -20px;
         }
-        &:nth-child(2) {
-          font-size: 16px !important;
-        }
-      }
-      .bgImg {
-        @include setBackgroundImage("picMaskBgMobile.png", true);
-        top: -31px !important;
       }
       .action {
         transform: scale(0.6);
+        bottom: 6vh;
         li {
           margin: 10px 20px !important;
         }

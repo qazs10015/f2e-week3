@@ -56,7 +56,74 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          align-items: flex-start;
+        }
+      }
+      .stopDetailGroup {
+        height: 100%;
+        .cdkVirScrollBar {
+          width: 100%;
+          height: 100%;
+        }
+
+        .timeLineGroup {
+          display: flex;
+          flex-direction: column;
           align-items: center;
+          margin-right: 10px;
+          .timeLine {
+            border-left: 2px solid $mainColor;
+            height: 20px;
+          }
+          .timePoint {
+            border-radius: 50%;
+            width: 5px;
+            border: 5px solid $mainColor;
+            height: 5px;
+          }
+        }
+
+        .commingStopDetail {
+          .busStatusMsg {
+            color: #f76a4b !important;
+          }
+          .timeLine {
+            border-left: 2px solid #f76a4b !important;
+          }
+          .timePoint {
+            border: 5px solid #f76a4b !important;
+          }
+          color: $black !important;
+        }
+        .stopDetail {
+          color: #a2a2a2;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          box-sizing: border-box;
+          .busStatusMsg {
+            min-width: 80px;
+          }
+          .busStatusGroup {
+            padding-right: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            width: 100%;
+
+            .busStopName {
+              min-width: 120px;
+            }
+            .busPlateNumb {
+              padding: 4px;
+              color: #5cbcdb;
+              border-radius: 100px;
+              border: 1px solid #5cbcdb;
+              min-width: 70px;
+              margin-bottom: -5px;
+            }
+          }
         }
       }
     }

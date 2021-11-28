@@ -1,3 +1,5 @@
+<!-- TODO:mobile menu -->
+
 <app-nav [detailMenuStyle]="true"></app-nav>
 <app-site-map [detailMenuStyle]="true"></app-site-map>
 <div class="routeDetailContainer">
@@ -15,8 +17,9 @@
     <div class="routeBasicInfo" *ngIf="routeDetail">
       <div class="title">{{ routeDetail.RouteName?.Zh_tw }}</div>
       <div>
-        {{ routeDetail?.DepartureStopNameZh }} -
-        {{ routeDetail?.DestinationStopNameZh }}
+        {{ departureStopName }}
+        <i class="fas fa-long-arrow-alt-right"></i>
+        {{ distinationStopName }}
       </div>
     </div>
   </div>
@@ -25,18 +28,53 @@
       <div class="directionGroup">
         <div class="direction">
           <span>行駛方向 </span>
-          <div>往 龍潭站</div>
+          <div>往 {{ distinationStopName }}</div>
         </div>
-        <div (click)="changeDirection()">
+        <div class="pointer" (click)="changeDirection()">
           <img src="assets/icons/exchange.png" alt="exchange.png" />
         </div>
       </div>
       <hr />
-      <div class="stopList">
-        <!-- TODO:測試往返的資料 -->
-        <p *ngFor="let stopData of lstStopData">
-          {{ stopData.bus | json }}
-        </p>
+      <div class="stopDetailGroup">
+        <cdk-virtual-scroll-viewport itemSize="10" class="cdkVirScrollBar">
+          <div
+            *cdkVirtualFor="let stopData of lstStopData; let idx = index"
+            class="stopDetail"
+            [ngClass]="{
+              commingStopDetail:
+                stopData?.estimateTime === 1 || stopData?.estimateTime === 0
+            }"
+          >
+            <div class="timeLineGroup">
+              <div class="timeLine" *ngIf="idx !== 0"></div>
+              <div class="timePoint"></div>
+            </div>
+            <!-- {{ stopData?.estimateTime }} -->
+            <div class="busStatusMsg">
+              {{ stopData?.statusMsg }}
+            </div>
+            <div class="busStatusGroup">
+              <div class="busStopName">{{ stopData?.stopName }}</div>
+              <div
+                class="busPlateNumb"
+                *ngIf="
+                  stopData?.estimateTime === 1 || stopData?.estimateTime === 0
+                "
+              >
+                <span *ngIf="stopData.vehicle === 1; else normalBus">
+                  <i class="fas fa-wheelchair"></i>
+                </span>
+                <ng-template #normalBus>
+                  <i class="fas fa-bus"></i>
+                </ng-template>
+
+                {{ stopData?.plateNumb }}
+              </div>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+        <div>{{ countDownTimer }}秒後更新</div>
+        <!-- <div [style.display]="'none'">{{ timer | async }}</div> -->
       </div>
     </div>
 

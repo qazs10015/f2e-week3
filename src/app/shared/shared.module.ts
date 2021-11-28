@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSidenavModule } from '@angular/material/sidenav';
 const materialModules = [
   ScrollingModule,
   MatAutocompleteModule,
@@ -21,6 +22,8 @@ const materialModules = [
   MatIconModule,
   MatFormFieldModule,
   MatSlideToggleModule,
+  MatSidenavModule,
+
 ]
 const thirdModules = [GoogleMapsModule, NgxPaginationModule]
 
@@ -28,7 +31,8 @@ const thirdModules = [GoogleMapsModule, NgxPaginationModule]
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    ...materialModules
   ],
   exports: [
     ...materialModules,

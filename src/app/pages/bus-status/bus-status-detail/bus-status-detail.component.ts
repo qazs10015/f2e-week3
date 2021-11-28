@@ -1,12 +1,13 @@
-import { forkJoin } from 'rxjs';
+import { forkJoin, of, timer } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BusRoute } from 'src/app/models/bus-route.model';
 import { CityBusService } from 'src/app/services/city-bus.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
 import { BusStopOfRoute } from 'src/app/models/bus-stop-of-route.model';
+import { BusVehicleInfo } from 'src/app/models/bus-vehicle-info.model';
 
 
 @Component({
@@ -26,56 +27,113 @@ export class BusStatusDetailComponent implements OnInit {
    */
   currentDirection = 0;
 
+  /** 出發站 */
+  departureStopName = '';
+
+  /** 終點站 */
+  distinationStopName = '';
+
+  /** 20秒更新一次 */
+  countDownTimer = 20;
+  timer = timer(0, 1000).pipe(tap((v) => {
+
+    if (this.countDownTimer === 1) {
+      this.countDownTimer = 20;
+      this.search();
+    } else this.countDownTimer -= 1
+    // console.log(this.countDownTimer - v);
+  }));
+
   constructor(
     private router: ActivatedRoute,
     private cityBusService: CityBusService
   ) { }
 
   async ngOnInit() {
+    this.search();
+  }
+
+  search() {
+    console.log(123);
     const city = this.router.snapshot.paramMap.get('city') ?? '';
     const routeName = this.router.snapshot.paramMap.get('routeName') ?? '';
 
     forkJoin([
       this.cityBusService.getRoute(city, routeName),
       this.cityBusService.getEstimatedTimeOfArrival(city, routeName, `PlateNumb ne '-1'`),
-
-      this.cityBusService.getStops(city, routeName),]).pipe(
+      this.cityBusService.getStops(city, routeName),
+      this.cityBusService.getVehicle(city, false),]).pipe(
         map((val: any[]) => {
 
+          // 路線資訊
           this.routeDetail = val[0][0];
 
+          // 即時公車資訊
           let lstBusN1EstimateTime = (val[1] as BusN1EstimateTime[]);
+          // 站點清單資訊
           let lstStops = (val[2] as BusStopOfRoute[]);
+          // 公車有無障礙車位資訊
+          let lstVehicle = (val[3] as BusVehicleInfo[]);
 
-          const result = lstStops.map(stop => {
+          const bus = lstStops.map(stopInfo => {
             // 所有站點資訊
-            const allStops = stop.Stops;
+            const allStops = stopInfo.Stops;
 
-            // 同一方向的即時公車資訊
-            const bus = lstBusN1EstimateTime
-              .filter(n1 => n1.Direction === stop.Direction)
-              .map(item => ({
-                estimateTime: Math.floor((item.EstimateTime ?? 0) / 60),
-                stopUID: item.StopUID,
-                stopName: allStops.find(stop => stop.StopUID === item.StopUID)?.StopName,
-                plantNumb: item.PlateNumb
-              }));
+            // 以站點資料為底，mapping 公車資訊
+            return allStops.map(stop => {
+              const bus = lstBusN1EstimateTime.find(n1 => (n1.StopUID === stop.StopUID && n1.Direction === stopInfo.Direction))
+              let result: any = {};
+              let statusMsg = '';
+              if (bus && bus.StopUID === stop.StopUID && bus.Direction === stopInfo.Direction) {
+                const estimateTime = Math.floor((bus.EstimateTime ?? 0) / 60);
 
-            bus.sort((a, b) => a.estimateTime - b.estimateTime)
+                // 依照到站時間派判斷狀態訊息
+                switch (estimateTime) {
+                  case 0:
+                    statusMsg = '進站中';
+                    break;
+                  case 1:
+                    statusMsg = '即將進站';
+                    break;
+                  default:
+                    statusMsg = `${estimateTime} 分鐘`;
+                    break;
+                }
 
-            return bus;
-
+                result = {
+                  estimateTime,
+                  stopUID: bus.StopUID,
+                  stopName: stop.StopName.Zh_tw,
+                  plateNumb: bus.PlateNumb,
+                  statusMsg,
+                  vehicle: lstVehicle.find(v => v.PlateNumb === bus.PlateNumb)?.VehicleType
+                }
+              } else {
+                // 無法 mappging 的資料
+                result = {
+                  estimateTime: -1,
+                  stopUID: stop.StopUID,
+                  stopName: stop.StopName.Zh_tw,
+                  plateNumb: '---',
+                  statusMsg: '未發車',
+                  vehicle: ''
+                }
+              }
+              return result;
+            })
           });
-          // debugger
-          return result;
+
+          return bus;
         })
       ).subscribe((val: any[]) => {
 
         console.log(val);
-        this.lstStopData = val;
+        this.lstStopData = val[this.currentDirection];
+        this.departureStopName = this.lstStopData[0].stopName;
+        this.distinationStopName = this.lstStopData[this.lstStopData.length - 1].stopName;
       })
-  }
 
+  }
   showScheduleList() {
 
   }
@@ -83,6 +141,7 @@ export class BusStatusDetailComponent implements OnInit {
   /** 切換 去 跟 返  */
   changeDirection() {
     this.currentDirection = this.currentDirection === 0 ? 1 : 0;
+    this.search();
   }
 
 }
