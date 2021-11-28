@@ -5,12 +5,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { SiteMapComponent } from './site-map/site-map.component';
-import { CustomGoogleMapComponent } from './custom-google-map/custom-google-map.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, SiteMapComponent, CustomGoogleMapComponent],
+  declarations: [NavComponent, SiteMapComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -18,8 +17,7 @@ import { CustomGoogleMapComponent } from './custom-google-map/custom-google-map.
   ],
   exports: [
     NavComponent,
-    SiteMapComponent,
-    CustomGoogleMapComponent
+    SiteMapComponent
   ]
 })
 export class ComponentsModule { }
