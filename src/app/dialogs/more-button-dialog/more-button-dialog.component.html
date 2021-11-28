@@ -3,7 +3,10 @@
   <h1 class="pointer" mat-dialog-close><i class="fas fa-times"></i></h1>
 </div>
 <mat-dialog-content>
-  <div class="optionGroup">
+  <div
+    class="optionGroup"
+    [ngClass]="{ mobileOptionGroup: deviceType !== DeviceType.Desktop }"
+  >
     <div
       class="optionItem pointer"
       *ngFor="let item of options"

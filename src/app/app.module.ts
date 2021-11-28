@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { MoreButtonDialogComponent } from './dialogs/more-button-dialog/more-button-dialog.component';
 import { RouteImageDialogComponent } from './dialogs/route-image-dialog/route-image-dialog.component';
 import { ScheduleListDialogComponent } from './dialogs/schedule-list-dialog/schedule-list-dialog.component';
+import { KeyboardDialogComponent } from './dialogs/keyboard-dialog/keyboard-dialog.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ScheduleListDialogComponent } from './dialogs/schedule-list-dialog/sche
     MoreButtonDialogComponent,
     RouteImageDialogComponent,
     ScheduleListDialogComponent,
+    KeyboardDialogComponent,
   ],
   imports: [
     BrowserModule,

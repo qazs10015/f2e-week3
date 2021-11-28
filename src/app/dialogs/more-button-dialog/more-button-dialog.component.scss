@@ -5,6 +5,11 @@
   justify-content: space-between;
   padding: 0 5px;
 }
+
+.mobileOptionGroup {
+  grid-template-columns: 1fr !important;
+}
+
 .optionGroup {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -1,0 +1,23 @@
+<div class="keyboard">
+  <div
+    class="pointer"
+    *ngFor="let item of lstKeyboardBtn"
+    class="{{ item.className }} keyboardBtn"
+  >
+    <ng-container [ngSwitch]="item.displayName">
+      <ng-container *ngSwitchCase="''">
+        <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
+      </ng-container>
+      <ng-container *ngSwitchCase="'更多'">
+        <a (click)="showMoreBtn()">{{ item.displayName }}</a>
+      </ng-container>
+      <ng-container *ngSwitchCase="'C'">
+        <a (click)="reset()">{{ item.displayName }}</a>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <a (click)="search(item.displayName)"> {{ item.displayName }}</a>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

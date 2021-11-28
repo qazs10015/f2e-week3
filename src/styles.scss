@@ -71,6 +71,20 @@ body {
       margin: 0 !important;
       padding: 10px 0 !important;
     }
+
+    .keyboard {
+      // display: none !important;
+      gap: 5px !important;
+      padding: 0 !important;
+      box-shadow: 0 0 0 !important;
+      width: 254px !important;
+      height: 281px !important;
+      .keyboardBtn {
+        line-height: 45px !important;
+        width: 45px !important;
+        height: 45px !important;
+      }
+    }
     .nav {
       display: none !important;
     }

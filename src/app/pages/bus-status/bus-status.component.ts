@@ -1,4 +1,4 @@
-import { ScheduleListDialogComponent } from './../../dialogs/schedule-list-dialog/schedule-list-dialog.component';
+import { KeyboardDialogComponent } from './../../dialogs/keyboard-dialog/keyboard-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BusN1EstimateTime } from 'src/app/models/bus-n1-estimate-time.model';
 import { BusRoute } from 'src/app/models/bus-route.model';
-import { BusSchedule } from 'src/app/models/bus-schedule.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { BaseCity } from '../../models/basic-city.model';
 import { BasicService } from '../../services/basic.service';
@@ -16,6 +15,7 @@ import { LocationService } from '../../services/location.service';
 import { LocatorService } from '../../services/locator.service';
 import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/more-button-dialog.component';
 import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
+import { ScheduleListDialogComponent } from './../../dialogs/schedule-list-dialog/schedule-list-dialog.component';
 import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
 
 
@@ -43,30 +43,6 @@ export class BusStatusComponent implements OnInit {
   options: BaseCity[] = [];
   // filteredOptions: Observable<BaseCity[]> = of([]);
 
-
-  /** 鍵盤選項 */
-  lstKeyboardBtn = [
-    { displayName: '紅', className: 'keyboardRed' },
-    { displayName: '藍', className: 'keyboardBlue' },
-    { displayName: '1', className: 'keyboardLightGray' },
-    { displayName: '2', className: 'keyboardLightGray' },
-    { displayName: '3', className: 'keyboardLightGray' },
-    { displayName: '棕', className: 'keyboardBrown' },
-    { displayName: '綠', className: 'keyboardGreen' },
-    { displayName: '4', className: 'keyboardLightGray' },
-    { displayName: '5', className: 'keyboardLightGray' },
-    { displayName: '6', className: 'keyboardLightGray' },
-    { displayName: '黃', className: 'keyboardYellow' },
-    { displayName: '橘', className: 'keyboardOrange' },
-    { displayName: '7', className: 'keyboardLightGray' },
-    { displayName: '8', className: 'keyboardLightGray' },
-    { displayName: '9', className: 'keyboardLightGray' },
-    { displayName: 'F', className: 'keyboardWhite' },
-    { displayName: '更多', className: 'keyboardGray' },
-    { displayName: 'C', className: 'keyboardLightGray' },
-    { displayName: '0', className: 'keyboardLightGray' },
-    { displayName: '', className: 'keyboardLightGray' },
-  ]
 
   lstBusRoute: any[] = [];
 
@@ -159,14 +135,14 @@ export class BusStatusComponent implements OnInit {
     const config: MatDialogConfig = {
       data: imageUrl,
       width: '90vw',
-      height: '80vh'
+      height: '80vh',
     }
     const ref = this.dialog.open(RouteImageDialogComponent, config);
   }
 
   showMoreBtn() {
     const config: MatDialogConfig = {
-      width: '60vw',
+      width: '90vw',
       height: '60vh'
     }
     const ref = this.dialog.open(MoreButtonDialogComponent, config);
@@ -215,6 +191,25 @@ export class BusStatusComponent implements OnInit {
       // height: '60vh'
     }
     const ref = this.dialog.open(ScheduleListDialogComponent, config);
+  }
+
+  showKeyboard() {
+    const config: MatDialogConfig = {
+      width: 'auto',
+      height: '47vh',
+      position: {
+        bottom: '4vh',
+      },
+      hasBackdrop: false
+    }
+    const ref = this.dialog.open(KeyboardDialogComponent, config);
+    ref.afterOpened().subscribe(() => {
+      // 開啟 dialog 後取得實體，並訂閱事件
+      ref.componentInstance.backSpaceEvent.subscribe(() => this.backSpace());
+      ref.componentInstance.resetEvent.subscribe(() => this.myForm.get('routeName')?.reset());
+      ref.componentInstance.showMoreEvent.subscribe(() => this.showMoreBtn());
+      ref.componentInstance.searchEvent.subscribe((val) => this.search(val));
+    });
   }
 
   /** 組合搜尋字串 */

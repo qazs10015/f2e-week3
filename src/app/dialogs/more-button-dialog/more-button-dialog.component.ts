@@ -1,3 +1,4 @@
+import { DeviceDetectorService, DeviceType } from 'ngx-device-detector';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -19,9 +20,14 @@ export class MoreButtonDialogComponent implements OnInit {
     "高鐵",
     "其他"
   ]
-  constructor(private ref: MatDialogRef<MoreButtonDialogComponent>) { }
+
+  DeviceType = DeviceType;
+  deviceType = DeviceType.Desktop;
+
+  constructor(private ref: MatDialogRef<MoreButtonDialogComponent>, private deviceDetectorService: DeviceDetectorService) { }
 
   ngOnInit(): void {
+    this.deviceType = this.deviceDetectorService.getDeviceInfo().deviceType as DeviceType;
   }
 
   close(routeName: string) {

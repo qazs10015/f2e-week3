@@ -26,6 +26,7 @@
                 matInput
                 placeholder="請輸入關鍵字"
                 formControlName="routeName"
+                (click)="showKeyboard()"
               />
               <div class="action">
                 <span
@@ -98,30 +99,13 @@
           </div>
         </ng-template>
       </div>
-      <div class="keyboard">
-        <div
-          class="pointer"
-          *ngFor="let item of lstKeyboardBtn"
-          class="{{ item.className }} keyboardBtn"
-        >
-          <ng-container [ngSwitch]="item.displayName">
-            <ng-container *ngSwitchCase="''">
-              <a (click)="backSpace()"><i class="fas fa-backspace"></i></a>
-            </ng-container>
-            <ng-container *ngSwitchCase="'更多'">
-              <a (click)="showMoreBtn()">{{ item.displayName }}</a>
-            </ng-container>
-            <ng-container *ngSwitchCase="'C'">
-              <a (click)="myForm.get('routeName')?.reset()">{{
-                item.displayName
-              }}</a>
-            </ng-container>
-
-            <ng-container *ngSwitchDefault>
-              <a (click)="search(item.displayName)"> {{ item.displayName }}</a>
-            </ng-container>
-          </ng-container>
-        </div>
+      <div>
+        <app-keyboard
+          (backSpaceEvent)="backSpace()"
+          (showMoreEvent)="showMoreBtn()"
+          (resetEvent)="myForm.get('routeName')?.reset()"
+          (searchEvent)="search($event)"
+        ></app-keyboard>
       </div>
     </div>
   </div>

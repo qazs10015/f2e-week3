@@ -5,11 +5,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { SiteMapComponent } from './site-map/site-map.component';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, SiteMapComponent],
+  declarations: [NavComponent, SiteMapComponent, KeyboardComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -17,7 +18,8 @@ import { SiteMapComponent } from './site-map/site-map.component';
   ],
   exports: [
     NavComponent,
-    SiteMapComponent
+    SiteMapComponent,
+    KeyboardComponent
   ]
 })
 export class ComponentsModule { }
