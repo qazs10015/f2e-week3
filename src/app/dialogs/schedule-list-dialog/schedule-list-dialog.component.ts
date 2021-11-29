@@ -1,3 +1,4 @@
+import { DeviceDetectorService, DeviceType } from 'ngx-device-detector';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
@@ -12,10 +13,19 @@ export class ScheduleListDialogComponent implements OnInit {
   backData: any[] = [];
 
   lstSchedule: any[] = [];
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any[]) { }
+
+
+
+  DeviceType = DeviceType;
+  deviceType = DeviceType.Desktop;
+
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any[], private deviceDetectorService: DeviceDetectorService) { }
 
   ngOnInit(): void {
+    this.deviceType = this.deviceDetectorService.getDeviceInfo().deviceType as DeviceType;
+
     this.lstSchedule = this.data;
+
     // if (this.data && this.data.length > 0) {
     //   this.goData = this.data[0];
     //   if (this.data.length > 1) {

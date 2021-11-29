@@ -3,7 +3,12 @@
   <h1 class="pointer" mat-dialog-close><i class="fas fa-times"></i></h1>
 </div>
 <mat-dialog-content>
-  <div class="scheduleDialogContainer">
+  <div
+    class="scheduleDialogContainer"
+    [ngClass]="{
+      mobilescheduleDialogContainer: deviceType !== DeviceType.Desktop
+    }"
+  >
     <div class="scheduleGroup" *ngFor="let scheduleItem of lstSchedule">
       <div class="title scheduleItem textCenter">
         {{ scheduleItem.stopName }}
