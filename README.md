@@ -26,6 +26,23 @@ npm start
 此網站支援 RWD 大部分可以做的功能都盡量完成了，除了 **附近站點** 的功能沒有實作(設計稿上無提供)，**班表查詢** 的功能已整合到 **公車動態**，所以無顯示此按鈕。
 時間關係只有手機跟電腦的版本，平板會跑版。
 
+### mobile (沒有 iphone X 所以用電腦模擬 😅😅😅)
+![image](https://user-images.githubusercontent.com/30744341/143811585-9394916b-8f2b-45b7-97fd-d64f42c55f94.png)
+![image](https://user-images.githubusercontent.com/30744341/143811598-94031c0a-2cfa-4cf4-aab8-1430f32504e0.png)
+![image](https://user-images.githubusercontent.com/30744341/143811606-0cde09a1-b77d-4b10-a9be-ec50913823c7.png)
+![image](https://user-images.githubusercontent.com/30744341/143811636-7866269f-0a63-41e3-9c65-0e743d6b6617.png)
+![image](https://user-images.githubusercontent.com/30744341/143811649-3ab9b2c0-f1f2-4f51-b102-0a73174d8671.png)
+![image](https://user-images.githubusercontent.com/30744341/143811658-ca8ebccc-775e-4c2a-bc1d-80489a42b11b.png)
+![image](https://user-images.githubusercontent.com/30744341/143811909-fdea3a88-c956-4fa0-9c31-a6e188f641a2.png)
+
+
+### web
+![image](https://user-images.githubusercontent.com/30744341/143811780-53be055b-4465-4f98-96ca-6dae66be4a3e.png)
+![image](https://user-images.githubusercontent.com/30744341/143811816-2def18f4-d906-471b-95d4-9687701688c1.png)
+![image](https://user-images.githubusercontent.com/30744341/143811849-19e44d5a-8c17-41d3-9f73-ad19ccd9c9eb.png)
+![image](https://user-images.githubusercontent.com/30744341/143811862-7d26e736-b60e-44c0-8335-a000327137f5.png)
+![image](https://user-images.githubusercontent.com/30744341/143811885-6adeb91d-4e77-45b7-be41-e301e3034ee8.png)
+
 ## 專案架構
 
 ```
