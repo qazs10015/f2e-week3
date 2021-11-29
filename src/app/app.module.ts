@@ -30,7 +30,8 @@ import { KeyboardDialogComponent } from './dialogs/keyboard-dialog/keyboard-dial
     ComponentsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    ComponentsModule
   ],
 
   providers: [{

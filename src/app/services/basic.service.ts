@@ -10,11 +10,12 @@ import { CityList } from '../shared/city.config';
 })
 export class BasicService {
 
-  private apiUrl = 'https://gist.motc.gov.tw/gist_api/V3/Map/Basic/'
+  private apiUrl = 'https://link.motc.gov.tw/v2/'
   constructor(private http: HttpClient) { }
 
   // 有時候 API 會掛掉
   getCity() {
+
     return this.http.get<BaseCity[]>(this.apiUrl + 'City').pipe(
       // API 有時會掛掉所以取資料失敗會直接給已預先儲存的城市清單
       catchError(() => of(CityList))

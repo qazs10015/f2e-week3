@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FavoritePipe } from '../pipes/favorite.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const materialModules = [
   ScrollingModule,
@@ -25,6 +26,7 @@ const materialModules = [
   MatFormFieldModule,
   MatSlideToggleModule,
   MatSidenavModule,
+  MatProgressSpinnerModule
 
 ]
 const thirdModules = [GoogleMapsModule, NgxPaginationModule]

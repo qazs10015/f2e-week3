@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { SiteMapComponent } from './site-map/site-map.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
+import { LoadingBarComponent } from './loading-bar/loading-bar.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent, SiteMapComponent, KeyboardComponent],
+  declarations: [NavComponent, SiteMapComponent, KeyboardComponent, LoadingBarComponent],
   imports: [
     CommonModule,
     RouterModule,
