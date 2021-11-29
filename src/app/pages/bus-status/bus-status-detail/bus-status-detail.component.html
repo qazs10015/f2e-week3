@@ -15,13 +15,18 @@
 
 <div class="routeDetailContainer">
   <div class="routeInfoGroup textCenter">
-    <div class="action" (click)="showScheduleList(city, routeName)">
+    <div class="action">
       <img
         class="actionBtn pointer"
         src="assets/icons/scheduleList.png"
         alt="scheduleList.png"
+        (click)="showScheduleList(city, routeName)"
       />
-      <span class="pointer scheduleList">公車班表</span>
+      <span
+        class="pointer scheduleList"
+        (click)="showScheduleList(city, routeName)"
+        >公車班表</span
+      >
     </div>
     <div class="mobileGoogleMapBtn" (click)="showMobileMap()">
       <i class="fas fa-map-marked-alt"></i>

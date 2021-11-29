@@ -18,6 +18,7 @@ import { MoreButtonDialogComponent } from './../../dialogs/more-button-dialog/mo
 import { RouteImageDialogComponent } from './../../dialogs/route-image-dialog/route-image-dialog.component';
 import { ScheduleListDialogComponent } from './../../dialogs/schedule-list-dialog/schedule-list-dialog.component';
 import { BusVehicleInfo } from './../../models/bus-vehicle-info.model';
+import { BusA1Data } from 'src/app/models/bus-a1-data.model';
 
 
 @Component({
@@ -74,28 +75,30 @@ export class BusStatusComponent implements OnInit {
         const vehicleType = formVal?.vehicleType;
 
         return forkJoin([
-          this.cityBusService.getEstimatedTimeOfArrival(city, routeName, `PlateNumb ne '-1'`),
           this.cityBusService.getRoute(city, routeName),
-          this.cityBusService.getVehicle(city, vehicleType)])
+          this.cityBusService.getVehicle(city, vehicleType),
+          this.cityBusService.getRealTimeByFrequency(city, routeName)
+        ])
           .pipe(
             map((val: any[]) => {
-              let lstBusN1EstimateTime = (val[0] as BusN1EstimateTime[]);
-              let lstBusRoute = (val[1] as BusRoute[]);
-              let lstBusVehicleInfo = (val[2] as BusVehicleInfo[]);
+              let lstBusRoute = (val[0] as BusRoute[]);
+              let lstBusVehicleInfo = (val[1] as BusVehicleInfo[]);
+              let lstBusRealTimeInfo = (val[2] as BusA1Data[]);
 
               // 所有的即時資料的車牌號碼
-              const lstPlantNumb = Array.from(new Set(lstBusN1EstimateTime.map(n1 => n1.PlateNumb)));
+              const lstPlantNumb = Array.from(new Set(lstBusRealTimeInfo.map(item => item.PlateNumb)));
               const filterVehicle = lstPlantNumb.filter(pn => lstBusVehicleInfo.find(bv => bv.PlateNumb === pn))
+
 
               // 以 車牌 為群組名稱，群組化資料
               const newLstBusN1EstimateTime = filterVehicle.map(pn => {
                 // 取出所有符合該車牌的資料
-                const lstMatchPlantNumb = lstBusN1EstimateTime.filter(n1 => n1.PlateNumb === pn);
+                const lstMatchPlantNumb = lstBusRealTimeInfo.filter(item => item.PlateNumb === pn)
 
                 return lstMatchPlantNumb
               });
 
-              return lstBusRoute.filter(route => newLstBusN1EstimateTime.find(n1 => n1.find(nn1 => nn1.RouteUID === route.RouteUID)));
+              return lstBusRoute.filter(route => newLstBusN1EstimateTime.find(item => item.find(info => info.RouteUID === route.RouteUID)));
             })
           )
       }),
