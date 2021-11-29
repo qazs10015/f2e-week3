@@ -1,3 +1,4 @@
+import { DeviceDetectorService, DeviceType } from 'ngx-device-detector';
 import { KeyboardDialogComponent } from './../../dialogs/keyboard-dialog/keyboard-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -55,7 +56,9 @@ export class BusStatusComponent implements OnInit {
     private BasicService: BasicService,
     private dialog: MatDialog,
     private utilityService: UtilityService,
-    private router: Router) {
+    private router: Router,
+
+    private deviceDetectorService: DeviceDetectorService) {
 
   }
   async ngOnInit() {
@@ -194,22 +197,26 @@ export class BusStatusComponent implements OnInit {
   }
 
   showKeyboard() {
-    const config: MatDialogConfig = {
-      width: 'auto',
-      height: '47vh',
-      position: {
-        bottom: '4vh',
-      },
-      hasBackdrop: false
+    const deviceType = this.deviceDetectorService.getDeviceInfo().deviceType;
+    if (deviceType !== DeviceType.Desktop) {
+      const config: MatDialogConfig = {
+        width: 'auto',
+        height: '47vh',
+        position: {
+          bottom: '4vh',
+        },
+        hasBackdrop: false
+      }
+      const ref = this.dialog.open(KeyboardDialogComponent, config);
+      ref.afterOpened().subscribe(() => {
+        // 開啟 dialog 後取得實體，並訂閱事件
+        ref.componentInstance.backSpaceEvent.subscribe(() => this.backSpace());
+        ref.componentInstance.resetEvent.subscribe(() => this.myForm.get('routeName')?.reset());
+        ref.componentInstance.showMoreEvent.subscribe(() => this.showMoreBtn());
+        ref.componentInstance.searchEvent.subscribe((val) => this.search(val));
+      });
     }
-    const ref = this.dialog.open(KeyboardDialogComponent, config);
-    ref.afterOpened().subscribe(() => {
-      // 開啟 dialog 後取得實體，並訂閱事件
-      ref.componentInstance.backSpaceEvent.subscribe(() => this.backSpace());
-      ref.componentInstance.resetEvent.subscribe(() => this.myForm.get('routeName')?.reset());
-      ref.componentInstance.showMoreEvent.subscribe(() => this.showMoreBtn());
-      ref.componentInstance.searchEvent.subscribe((val) => this.search(val));
-    });
+
   }
 
   /** 組合搜尋字串 */

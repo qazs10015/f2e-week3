@@ -66,7 +66,8 @@ mat-sidenav {
   }
 }
 .mat-drawer-content {
-  height: 93vh !important;
+  height: 94vh !important;
+  overflow: hidden;
 }
 .mobileMenu {
   display: flex;

@@ -82,13 +82,13 @@
     }
     .searchResultContent {
       width: 100%;
-      height: 70%;
+      height: 100%;
       // @include setBackgroundImage("signPic_default.png");
       // background-repeat: no-repeat;
       // background-position: 50% calc(50% - 42px);
       .cdkVirScrollBar {
         width: 100%;
-        height: 70%;
+        height: 72%;
       }
       .routeInfoGroup {
         display: flex;
