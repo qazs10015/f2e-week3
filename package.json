@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve -o",
-    "build": "ng build --prod=true --base-href=/f2e-week3/",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build --prod=true --base-href=/f2e-week3/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
