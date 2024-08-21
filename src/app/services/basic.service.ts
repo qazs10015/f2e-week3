@@ -6,27 +6,13 @@ import { catchError } from 'rxjs/operators';
 import { CityList } from '../shared/city.config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BasicService {
+  constructor(private http: HttpClient) {}
 
-  private apiUrl = 'https://link.motc.gov.tw/v2/'
-  constructor(private http: HttpClient) { }
-
-  // 有時候 API 會掛掉
+  /** 取得城市清單 */
   getCity() {
-
-    return this.http.get<BaseCity[]>(this.apiUrl + 'City').pipe(
-      // API 有時會掛掉所以取資料失敗會直接給已預先儲存的城市清單
-      catchError(() => of(CityList))
-    ).toPromise();
+    return Promise.resolve(CityList);
   }
-
-
-
-
-
-
-
-
 }

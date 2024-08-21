@@ -1,5 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -11,15 +18,12 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-custom-google-map',
   templateUrl: './custom-google-map.component.html',
-  styleUrls: ['./custom-google-map.component.scss']
+  styleUrls: ['./custom-google-map.component.scss'],
 })
 export class CustomGoogleMapComponent implements OnInit {
-
-
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
 
   apiLoaded: Observable<boolean>;
-
 
   currentSelectInfoWindow: any = {};
   /** 目前位置的經緯度 */
@@ -61,46 +65,44 @@ export class CustomGoogleMapComponent implements OnInit {
   private _lstStopData: any[] = [];
   @Input() set lstStopData(val: any[]) {
     if (val.length > 0) {
-
       this._lstStopData = val;
 
       // 整理所有站點的位置
-      this.stopMarkers = this._lstStopData.map(item => {
+      this.stopMarkers = this._lstStopData.map((item) => {
         return {
           isCommingBus: item.estimateTime === 0,
-          stopPos: { lat: item.stopPos.PositionLat, lng: item.stopPos.PositionLon },
+          stopPos: {
+            lat: item.stopPos.PositionLat,
+            lng: item.stopPos.PositionLon,
+          },
           stopName: item.stopName,
-          statusMsg: item.statusMsg
-        }
+          statusMsg: item.statusMsg,
+        };
       });
 
       // 取第一個站位當作起始位置
       if (this.startPosition.lat === 0) {
-
         this.startPosition = this.stopMarkers[0].stopPos;
       }
-
-
     }
-
   }
   constructor(
     private router: ActivatedRoute,
     private httpClient: HttpClient,
-    private cityBusService: CityBusService) {
-    this.apiLoaded = this.httpClient.jsonp(environment.googleMap, 'callback')
+    private cityBusService: CityBusService
+  ) {
+    this.apiLoaded = this.httpClient
+      .jsonp(environment.googleMap, 'callback')
       .pipe(
         tap(() => {
           this.loadGoogleMapConfig();
         }),
         map(() => true),
-        catchError(() => of(false)),
+        catchError(() => of(false))
       );
   }
 
-
   async ngOnInit() {
-
     // this.currentDirection = changes['currentDirection']?.currentValue;
     const city = this.router.snapshot.paramMap.get('city') ?? '';
     const routeName = this.router.snapshot.paramMap.get('routeName') ?? '';
@@ -108,17 +110,19 @@ export class CustomGoogleMapComponent implements OnInit {
 
     // LINESTRING((121.508405511567 25.0378847666251,121.508504751296 25.0382006816341))
     // 移除掉不需要的字元
-    const infoList: string[] = shape[this._currentDirection].Geometry.replace('LINESTRING', '').replace(/\(+/gm, '').replace(/\)+/gm, '').split(',');
+    const infoList: string[] = shape[this._currentDirection].Geometry.replace(
+      'LINESTRING',
+      ''
+    )
+      .replace(/\(+/gm, '')
+      .replace(/\)+/gm, '')
+      .split(',');
 
     // 整理路線資料
-    this.polyPath = infoList.map(info => {
+    this.polyPath = infoList.map((info) => {
       const coordinate = info.split(' ');
       return { lat: Number(coordinate[1]), lng: Number(coordinate[0]) };
     });
-
-
-
-
   }
 
   openInfoWindow(marker: MapMarker, stopStatus: any) {
@@ -139,7 +143,7 @@ export class CustomGoogleMapComponent implements OnInit {
         strokeColor: 'red',
         strokeWeight: 8,
         scale: 6,
-        path: google.maps.SymbolPath.CIRCLE
+        path: google.maps.SymbolPath.CIRCLE,
       } as google.maps.Symbol,
     };
 
@@ -147,8 +151,8 @@ export class CustomGoogleMapComponent implements OnInit {
     this.currentBusMarkerOption = {
       draggable: false,
       animation: google.maps.Animation.BOUNCE,
-      icon: 'assets/icons/small_bus.png'
-    }
+      icon: 'assets/icons/small_bus.png',
+    };
 
     // 地圖選項設定
     this.googleMapOptions = {
@@ -157,7 +161,7 @@ export class CustomGoogleMapComponent implements OnInit {
       disableDoubleClickZoom: true,
       draggable: true,
       zoomControl: true,
-    }
+    };
 
     // 線圖設定
     this.polyOptions = {
@@ -166,5 +170,4 @@ export class CustomGoogleMapComponent implements OnInit {
       strokeWeight: 5,
     };
   }
-
 }

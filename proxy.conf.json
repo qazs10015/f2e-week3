@@ -1,0 +1,11 @@
+{
+  "/MOTC": {
+    "target": "https://tdx.transportdata.tw/MOTC/v2/Bus",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/MOTC": "https://tdx.transportdata.tw/MOTC/v2/Bus"
+    }
+  }
+}

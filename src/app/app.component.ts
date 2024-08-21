@@ -5,32 +5,27 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { GlobalService } from './services/global.service';
 import { BehaviorSubject } from 'rxjs';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'f2e-week3';
   overlayRef = {} as OverlayRef;
   loadingBar$ = new BehaviorSubject<boolean>(false);
-  constructor(private overlay: Overlay, public globalService: GlobalService) { }
+  constructor(
+    private overlay: Overlay,
+    public globalService: GlobalService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
-    // this.overlayRef = this.overlay.create({
-    //   positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
-    //   hasBackdrop: true
-    // });
-
-    // this.globalService.loadingBar$.subscribe(val => {
-    //   if (val && !this.overlayRef.hasAttached()) {
-    //     this.overlayRef.attach(new ComponentPortal(LoadingBarComponent));
-    //   } else if (!val) {
-    //     this.overlayRef.detach();
-    //   }
-    // });
-
+    this.loginService.login().subscribe((res) => {
+      sessionStorage.setItem('token', res.access_token);
+    });
   }
 
   ngOnDestroy(): void {

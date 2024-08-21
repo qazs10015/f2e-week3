@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve -o --proxy-config proxy.conf.json",
     "build": "ng build --prod=true --base-href=/f2e-week3/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
