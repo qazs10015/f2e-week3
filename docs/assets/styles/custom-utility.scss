@@ -1,0 +1,98 @@
+input {
+  outline: none;
+}
+
+img {
+  padding: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.pd10 {
+  padding: 10px;
+}
+
+.mr10 {
+  margin: 10px;
+}
+
+// 修改 下拉選單的箭頭
+select {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Some browsers will not display the caret when using calc, so we put the fallback first */
+  background: url("../icons/arrow_drop_down_black_24dp.svg") white no-repeat
+    98.5% !important; /* !important used for overriding all other customisations */
+  background: url("../icons/arrow_drop_down_black_24dp.svg") white no-repeat
+    calc(100% - 10px) !important; /* Better placement regardless of input width */
+}
+
+mat-sidenav {
+  width: 100vw;
+  background-color: $mainColor;
+  color: $white;
+  .closeSideNav {
+    padding: 20px;
+    font-size: 26px;
+  }
+  a {
+    color: $white;
+  }
+}
+.mat-drawer-content {
+  height: 94vh !important;
+  overflow: hidden;
+}
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26px;
+  height: 50vh;
+}
+.toolBar {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white;
+  font-size: 26px;
+  background-color: $mainColor;
+}
+
+.mobileGoogleMap {
+  display: none;
+}
+.mobileGoogleMapBtn {
+  display: none;
+}
+.toolBar {
+  display: none;
+}
