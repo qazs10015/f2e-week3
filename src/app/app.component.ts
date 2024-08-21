@@ -1,10 +1,7 @@
-import { BasicService } from './services/basic.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
-import { GlobalService } from './services/global.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { GlobalService } from './services/global.service';
 import { LoginService } from './services/login.service';
 
 @Component({
