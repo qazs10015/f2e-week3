@@ -3,6 +3,8 @@
 
 [Demo](https://qazs10015.github.io/f2e-week3)
 
+**由於第三方 API 免費會員 1 分鐘內只能有 5 次的呼叫次數，因此可能會有無法顯示資料的情況發生**
+
 開發框架： Angular
 
  其他套件：[Angualr Material](https://material.angular.io/)、[Angular GoogleMap](https://github.com/angular/components/tree/master/src/google-maps)、[jssha(加密套件)](https://github.com/Caligatio/jsSHA)、[ngx-device-detector](https://github.com/KoderLabs/ngx-device-detector#readme)
